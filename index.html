@@ -638,6 +638,36 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s ease;
+        }
+        .week-day-header:hover {
+            background: #1e2433;
+        }
+        .day-arrow-badge {
+            background: rgba(204, 255, 0, 0.1);
+            border: 1px solid rgba(204, 255, 0, 0.3);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        .week-day-header:hover .day-arrow-badge {
+            background: rgba(204, 255, 0, 0.2);
+            border-color: #ccff00;
+        }
+        @media print {
+            .week-day-body {
+                display: grid !important;
+            }
+            .day-arrow-badge {
+                display: none !important;
+            }
         }
 
         .day-name-badge {
@@ -1279,16 +1309,23 @@
 
             <!-- SEGUNDA-FEIRA -->
             <div class="week-day-card">
-                <div class="week-day-header">
+                <div class="week-day-header" onclick="toggleDay('mon')">
                     <div class="week-day-title">
                         <span class="badge-day">Segunda</span>
                         <span id="title_mon">Foco: Início de Semana & Treino A</span>
                     </div>
-                    <label class="day-check-status">
-                        <input type="checkbox" id="check_mon" class="auto-save"> Dia Cumprido
-                    </label>
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <label class="day-check-status" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="check_mon" class="auto-save"> Dia Cumprido
+                        </label>
+                        <div class="day-arrow-badge" id="arrow_mon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); transform: rotate(0deg); display: block;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="week-day-body">
+                <div class="week-day-body" id="body_mon" style="display: none;">
                     <div class="pillar-col">
                         <div class="pillar-title pillar-training"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/></svg>Treino Prescrito</div>
                         <textarea class="pillar-textarea auto-save" id="train_mon" placeholder="O sistema preencherá aqui uma sugestão de treino; revise antes de executar..."></textarea>
@@ -1306,16 +1343,23 @@
 
             <!-- TERÇA-FEIRA -->
             <div class="week-day-card">
-                <div class="week-day-header">
+                <div class="week-day-header" onclick="toggleDay('tue')">
                     <div class="week-day-title">
                         <span class="badge-day">Terça</span>
-                        <span id="title_tue">Foco: Continuidade & Treino B</span>
+                        <span id="title_tue">Foco: Membros Superiores & Costas</span>
                     </div>
-                    <label class="day-check-status">
-                        <input type="checkbox" id="check_tue" class="auto-save"> Dia Cumprido
-                    </label>
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <label class="day-check-status" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="check_tue" class="auto-save"> Dia Cumprido
+                        </label>
+                        <div class="day-arrow-badge" id="arrow_tue">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); transform: rotate(0deg); display: block;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="week-day-body">
+                <div class="week-day-body" id="body_tue" style="display: none;">
                     <div class="pillar-col">
                         <div class="pillar-title pillar-training"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/></svg>Treino Prescrito</div>
                         <textarea class="pillar-textarea auto-save" id="train_tue" placeholder="O sistema preencherá aqui uma sugestão de treino; revise antes de executar..."></textarea>
@@ -1333,16 +1377,23 @@
 
             <!-- QUARTA-FEIRA -->
             <div class="week-day-card">
-                <div class="week-day-header">
+                <div class="week-day-header" onclick="toggleDay('wed')">
                     <div class="week-day-title">
                         <span class="badge-day">Quarta</span>
                         <span id="title_wed">Foco: Recuperação Ativa & Equilíbrio</span>
                     </div>
-                    <label class="day-check-status">
-                        <input type="checkbox" id="check_wed" class="auto-save"> Dia Cumprido
-                    </label>
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <label class="day-check-status" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="check_wed" class="auto-save"> Dia Cumprido
+                        </label>
+                        <div class="day-arrow-badge" id="arrow_wed">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); transform: rotate(0deg); display: block;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="week-day-body">
+                <div class="week-day-body" id="body_wed" style="display: none;">
                     <div class="pillar-col">
                         <div class="pillar-title pillar-training"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><circle cx="12" cy="5" r="2"/><path d="m4 17 6-6 4 4 6-6"/><path d="M8 21v-4"/><path d="M16 21v-4"/></svg>Treino / Movimento</div>
                         <textarea class="pillar-textarea auto-save" id="train_wed" placeholder="O sistema preencherá aqui uma sugestão de treino; revise antes de executar..."></textarea>
@@ -1360,16 +1411,23 @@
 
             <!-- QUINTA-FEIRA -->
             <div class="week-day-card">
-                <div class="week-day-header">
+                <div class="week-day-header" onclick="toggleDay('thu')">
                     <div class="week-day-title">
                         <span class="badge-day">Quinta</span>
-                        <span id="title_thu">Foco: Força & Treino C</span>
+                        <span id="title_thu">Foco: Posterior de Coxa & Glúteos</span>
                     </div>
-                    <label class="day-check-status">
-                        <input type="checkbox" id="check_thu" class="auto-save"> Dia Cumprido
-                    </label>
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <label class="day-check-status" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="check_thu" class="auto-save"> Dia Cumprido
+                        </label>
+                        <div class="day-arrow-badge" id="arrow_thu">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); transform: rotate(0deg); display: block;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="week-day-body">
+                <div class="week-day-body" id="body_thu" style="display: none;">
                     <div class="pillar-col">
                         <div class="pillar-title pillar-training"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/></svg>Treino Prescrito</div>
                         <textarea class="pillar-textarea auto-save" id="train_thu" placeholder="O sistema preencherá aqui uma sugestão de treino; revise antes de executar..."></textarea>
@@ -1387,16 +1445,23 @@
 
             <!-- SEXTA-FEIRA -->
             <div class="week-day-card">
-                <div class="week-day-header">
+                <div class="week-day-header" onclick="toggleDay('fri')">
                     <div class="week-day-title">
                         <span class="badge-day">Sexta</span>
-                        <span id="title_fri">Foco: Fechamento Semanal & Cardio</span>
+                        <span id="title_fri">Foco: Fechamento Semanal & Tronco</span>
                     </div>
-                    <label class="day-check-status">
-                        <input type="checkbox" id="check_fri" class="auto-save"> Dia Cumprido
-                    </label>
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <label class="day-check-status" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="check_fri" class="auto-save"> Dia Cumprido
+                        </label>
+                        <div class="day-arrow-badge" id="arrow_fri">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); transform: rotate(0deg); display: block;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="week-day-body">
+                <div class="week-day-body" id="body_fri" style="display: none;">
                     <div class="pillar-col">
                         <div class="pillar-title pillar-training"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/></svg>Treino Prescrito</div>
                         <textarea class="pillar-textarea auto-save" id="train_fri" placeholder="O sistema preencherá aqui uma sugestão de treino; revise antes de executar..."></textarea>
@@ -2251,6 +2316,7 @@
       setStatus('res_delta_status', 'Peso estável', 'status-normal');
     }
 
+    toggleDay('mon', true); // Abre a segunda-feira automaticamente para visualização imediata
     // Montagem dinâmica dos treinos (se solicitado)
     if (assembleWorkouts) {
       assembleSpecificWorkouts(d.level, d.goal, d.cardio, d.knee, d.spine, d.shoulder, fmt(result.water));
@@ -2454,6 +2520,21 @@
     }
   }
   window.toggleTestimonial = toggleTestimonial;
+
+  
+  function toggleDay(day, forceOpen = false) {
+    const body = document.getElementById('body_' + day);
+    const arrow = document.getElementById('arrow_' + day);
+    if (!body) return;
+    const isCurrentlyClosed = (body.style.display === 'none' || body.style.display === '');
+    const willOpen = forceOpen ? true : isCurrentlyClosed;
+    body.style.display = willOpen ? 'grid' : 'none';
+    if (arrow) {
+      const svg = arrow.querySelector('svg');
+      if (svg) svg.style.transform = willOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+  }
+  window.toggleDay = toggleDay;
 
   window.toggleNoLimitations = toggleNoLimitations;
   window.untickNoLimitations = untickNoLimitations;
