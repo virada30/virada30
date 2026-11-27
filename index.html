@@ -51,7 +51,7 @@
         }
 
         .container {
-            max-width: 980px;
+            max-width: 1240px;
             margin: 0 auto;
             background: var(--card-bg);
             border-radius: 18px;
@@ -703,8 +703,13 @@
         .week-day-body {
             padding: 18px 20px;
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+        @media (max-width: 1080px) {
+            .week-day-body {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
 
         .pillar-col {
@@ -738,6 +743,11 @@
         .pillar-rest {
             color: #a78bfa;
             border-bottom: 2px solid #a78bfa;
+        }
+
+        .pillar-cardio {
+            color: #fb923c;
+            border-bottom: 2px solid #fb923c;
         }
 
         .pillar-textarea {
@@ -4818,6 +4828,10 @@
                         <div class="pillar-title pillar-rest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Descanso & Hidratação</div>
                         <textarea class="pillar-textarea auto-save" id="rest_mon" placeholder="Registre descanso e hidratação; a referência de água é aproximada..."></textarea>
                     </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-cardio"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Cardio Sugerido</div>
+                        <textarea class="pillar-textarea auto-save" id="cardio_mon" placeholder="Sugestão de cardio adaptada ao seu nível (esteira, HIIT, escada, bike ou crossfit)..."></textarea>
+                    </div>
                     <div class="weights-tracker-box">
                         <div class="weights-tracker-header" onclick="toggleWeightsTracker('mon')">
                             <div style="display: flex; align-items: center; gap: 6px;">
@@ -4881,6 +4895,10 @@
                     <div class="pillar-col">
                         <div class="pillar-title pillar-rest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Descanso & Hidratação</div>
                         <textarea class="pillar-textarea auto-save" id="rest_tue" placeholder="Registre descanso e hidratação; a referência de água é aproximada..."></textarea>
+                    </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-cardio"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Cardio Sugerido</div>
+                        <textarea class="pillar-textarea auto-save" id="cardio_tue" placeholder="Sugestão de cardio adaptada ao seu nível (esteira, HIIT, escada, bike ou crossfit)..."></textarea>
                     </div>
                     <div class="weights-tracker-box">
                         <div class="weights-tracker-header" onclick="toggleWeightsTracker('tue')">
@@ -4946,6 +4964,10 @@
                         <div class="pillar-title pillar-rest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Descanso & Hidratação</div>
                         <textarea class="pillar-textarea auto-save" id="rest_wed" placeholder="Registre descanso e hidratação; a referência de água é aproximada..."></textarea>
                     </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-cardio"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Cardio Sugerido</div>
+                        <textarea class="pillar-textarea auto-save" id="cardio_wed" placeholder="Sugestão de cardio adaptada ao seu nível (esteira, HIIT, escada, bike ou crossfit)..."></textarea>
+                    </div>
                     <div class="weights-tracker-box">
                         <div class="weights-tracker-header" onclick="toggleWeightsTracker('wed')">
                             <div style="display: flex; align-items: center; gap: 6px;">
@@ -5009,6 +5031,10 @@
                     <div class="pillar-col">
                         <div class="pillar-title pillar-rest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Descanso & Hidratação</div>
                         <textarea class="pillar-textarea auto-save" id="rest_thu" placeholder="Registre descanso e hidratação; a referência de água é aproximada..."></textarea>
+                    </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-cardio"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Cardio Sugerido</div>
+                        <textarea class="pillar-textarea auto-save" id="cardio_thu" placeholder="Sugestão de cardio adaptada ao seu nível (esteira, HIIT, escada, bike ou crossfit)..."></textarea>
                     </div>
                     <div class="weights-tracker-box">
                         <div class="weights-tracker-header" onclick="toggleWeightsTracker('thu')">
@@ -5074,6 +5100,10 @@
                         <div class="pillar-title pillar-rest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Descanso & Hidratação</div>
                         <textarea class="pillar-textarea auto-save" id="rest_fri" placeholder="Registre descanso e hidratação; a referência de água é aproximada..."></textarea>
                     </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-cardio"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Cardio Sugerido</div>
+                        <textarea class="pillar-textarea auto-save" id="cardio_fri" placeholder="Sugestão de cardio adaptada ao seu nível (esteira, HIIT, escada, bike ou crossfit)..."></textarea>
+                    </div>
                     <div class="weights-tracker-box">
                         <div class="weights-tracker-header" onclick="toggleWeightsTracker('fri')">
                             <div style="display: flex; align-items: center; gap: 6px;">
@@ -5136,6 +5166,10 @@
                     <div class="pillar-col">
                         <div class="pillar-title pillar-rest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Descanso & Hidratação</div>
                         <textarea class="pillar-textarea auto-save" id="rest_sat" placeholder="Registre descanso e hidratação; a referência de água é aproximada..."></textarea>
+                    </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-cardio"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Cardio Sugerido</div>
+                        <textarea class="pillar-textarea auto-save" id="cardio_sat" placeholder="Sugestão de cardio adaptada ao seu nível (esteira, HIIT, escada, bike ou crossfit)..."></textarea>
                     </div>
                     <div class="weights-tracker-box">
                         <div class="weights-tracker-header" onclick="toggleWeightsTracker('sat')">
@@ -5200,6 +5234,10 @@
                     <div class="pillar-col">
                         <div class="pillar-title pillar-rest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Descanso & Hidratação</div>
                         <textarea class="pillar-textarea auto-save" id="rest_sun" placeholder="Registre descanso e hidratação; a referência de água é aproximada..."></textarea>
+                    </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-cardio"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Cardio Sugerido</div>
+                        <textarea class="pillar-textarea auto-save" id="cardio_sun" placeholder="Sugestão de cardio adaptada ao seu nível (esteira, HIIT, escada, bike ou crossfit)..."></textarea>
                     </div>
                     <div class="weights-tracker-box">
                         <div class="weights-tracker-header" onclick="toggleWeightsTracker('sun')">
@@ -6024,6 +6062,131 @@
       return plans[day] || plans.mon;
     }
 
+    // GERAÇÃO DE CARDIO SUGERIDO POR NÍVEL (Esteira máx. 20 km/h | Incl. 15 • Escada máx. 20 • Bike • Remador)
+    function getCardioPlan(level, day, limitKnee, limitSpine) {
+      const kneeSafe = Boolean(limitKnee);
+      const spineSafe = Boolean(limitSpine);
+
+      if (level === 'beginner_zero') {
+        const plans = {
+          mon: `[CARDIO SUGERIDO • INICIANTE]
+• Esteira: 15–20 min • Vel. 4,5–5,5 km/h (máx. 20) • Inclinação: 0–2 (máx. 15).
+• ${kneeSafe ? 'Escada (Evitar p/ Joelho)' : 'Simulador de Escada'}: ${kneeSafe ? 'Substituir por Bike ou Remador para zero impacto no joelho.' : '8–10 min • Vel. nível 3–5 (máx. 20), postura ereta sem apoiar o peso nos braços.'}
+• Bicicleta Ergométrica: 20 min • Carga leve (65–75 rpm), excelente para proteger as articulações.
+• Remador Ergométrico: 10–12 min • Resistência 3–4 (de 10) • Ritmo leve (18–20 remadas/min), coluna neutra.
+• Dica de Nível: Escolha 1 modalidade por dia em ritmo de conversa (Zona 2) para criar base aeróbica.`,
+          tue: `[CARDIO SUGERIDO • INICIANTE]
+• Bicicleta Ergométrica (Principal): 20 min contínuos • Carga leve a moderada (65–75 rpm).
+• Remador Ergométrico: 10–15 min • Resistência 3–5 (de 10) • 18–22 remadas/min, puxando com pernas e costas.
+• Esteira: 15–20 min • Vel. 5,0–5,8 km/h (máx. 20) • Inclinação: 2–4 (máx. 15).
+• ${kneeSafe ? 'Escada (Adaptada)' : 'Simulador de Escada'}: ${kneeSafe ? 'Preferir Bike ou Remador hoje.' : '10 min • Vel. nível 3–5 (máx. 20).'}
+• Dica de Nível: Foque na técnica e constância antes de subir velocidade ou carga.`,
+          wed: `[CARDIO SUGERIDO • INICIANTE]
+• Esteira / Caminhada Ativa: 25 min • Vel. 4,5–5,5 km/h (máx. 20) • Inclinação: 0–2 (máx. 15).
+• Bicicleta Ergométrica: 20–25 min girando solto (carga leve, 65–70 rpm) para recuperação ativa.
+• Remador Ergométrico: 12 min contínuos • Resistência 3–4 • 18–20 remadas/min em ritmo bem confortável.
+• Dica de Nível: Dia ideal para ativar a circulação sem sobrecarregar tendões.`,
+          thu: `[CARDIO SUGERIDO • INICIANTE]
+• ${kneeSafe ? 'Bicicleta Ergométrica (Adaptada p/ Joelho)' : 'Simulador de Escada (Principal)'}: ${kneeSafe ? '20 min com assento bem ajustado e carga leve (zero impacto).' : '10–12 min contínuos • Vel. nível 4–6 (máx. 20).'}
+• Remador Ergométrico: 12–15 min • Resistência 4–5 • 20–22 remadas/min${spineSafe ? ' (atenção extra à coluna neutra)' : ''}.
+• Esteira: 20 min • Vel. 5,0–6,0 km/h (máx. 20) • Inclinação: 2–4 (máx. 15).
+• Bicicleta Ergométrica: 20 min em cadência constante (70–75 rpm).`,
+          fri: `[CARDIO SUGERIDO • INICIANTE]
+• Intervalado Leve na Esteira: 18 min alternando 2 min a 4,5–5,0 km/h x 1 min a 6,0–7,0 km/h (máx. 20) • Inclinação: 1–3 (máx. 15).
+• Bicicleta Ergométrica: 20 min alternando 2 min carga leve x 1 min moderada (70–80 rpm).
+• Remador Ergométrico: 12 min alternando 2 min leve (18 rpm) x 1 min firme (22 rpm) • Resistência 4–5.
+• ${kneeSafe ? 'Escada (Opcional)' : 'Simulador de Escada'}: ${kneeSafe ? 'Optar por Bike ou Remador.' : '10–12 min • Vel. nível 4–6 (máx. 20).'}`,
+          sat: `[CARDIO SUGERIDO • INICIANTE]
+• Esteira Prolongada: 25–30 min • Vel. 4,8–5,8 km/h (máx. 20) • Inclinação: 1–4 (máx. 15).
+• Bicicleta Ergométrica: 25 min em ritmo leve/moderado (70 rpm).
+• Remador Ergométrico: 15 min contínuos • Resistência 3–5 • 18–22 remadas/min.
+• ${kneeSafe ? 'Escada (Opcional)' : 'Simulador de Escada'}: ${kneeSafe ? 'Manter Bike ou Esteira plana.' : '12–15 min • Vel. nível 3–6 (máx. 20).'}`,
+          sun: `[CARDIO SUGERIDO • INICIANTE]
+• Esteira / Caminhada Restauradora (Opcional): 20 min • Vel. 4,0–5,0 km/h (máx. 20) • Inclinação: 0–1 (máx. 15).
+• Bicicleta Ergométrica ou Remador Leve: 15–20 min bem tranquilo (ou descanso total).
+• Dica de Nível: Respeite sinais de cansaço e priorize o sono para segunda-feira.`
+        };
+        return plans[day] || plans.mon;
+      } else if (level === 'intermediate') {
+        const plans = {
+          mon: `[CARDIO SUGERIDO • INTERMEDIÁRIO]
+• Esteira Inclinada: 25 min • Vel. 5,5–6,5 km/h (ou trote 8,0–9,5 km/h; máx. 20) • Inclinação: 6–10 (máx. 15).
+• ${kneeSafe ? 'Escada (Adaptada)' : 'Simulador de Escada'}: ${kneeSafe ? 'Preferir Bike ou Remador para poupar o joelho.' : '15–18 min contínuos • Vel. nível 7–10 (máx. 20).'}
+• Bicicleta Ergométrica: 25 min intensidade moderada (75–85 rpm, carga média).
+• Remador Ergométrico: 15–18 min • Resistência 5–7 (de 10) • 22–26 remadas/min em ritmo firme.
+• Dica de Nível: Mantenha a frequência cardíaca entre 65% e 75% da máxima.`,
+          tue: `[CARDIO SUGERIDO • INTERMEDIÁRIO]
+• ${kneeSafe ? 'Bicicleta Ergométrica Intervalada (Principal)' : 'Simulador de Escada (Principal)'}: ${kneeSafe ? '20 min alternando 1 min forte x 1 min leve (80–90 rpm).' : '15–20 min • Vel. nível 8–11 (máx. 20), sem apoiar nos corrimãos.'}
+• Remador Ergométrico: 15 min (5x 2 min firme a 24–26 remadas/min x 1 min leve) • Resistência 6–7.
+• HIIT Moderado na Esteira: 8 tiros de 40s a 10,5–12,5 km/h x 40s a 5,5 km/h (máx. 20) • Inclinação: 1–2 (máx. 15).
+• Bicicleta Ergométrica: 20–25 min carga moderada-alta.`,
+          wed: `[CARDIO SUGERIDO • INTERMEDIÁRIO]
+• Bicicleta Ergométrica (Zona 2): 30 min contínuos em carga moderada (75–80 rpm) para recuperação metabólica.
+• Remador Ergométrico: 18–20 min contínuos • Resistência 5–6 • 22–24 remadas/min (ritmo constante).
+• Esteira Zona 2: 30 min • Vel. 6,0–6,8 km/h (inclinação 5–8) ou trote leve 8,0–9,0 km/h (incl. 1–2; máx. 20 / incl. 15).
+• Dica de Nível: Volume aeróbico limpo sem gerar fadiga muscular pesada.`,
+          thu: `[CARDIO SUGERIDO • INTERMEDIÁRIO]
+• HIIT na Esteira: 18 min (8 tiros de 45s a 11,0–13,5 km/h x 45s a 5,5–6,0 km/h; máx. 20) • Inclinação: 1–3 (máx. 15).
+• Remador Ergométrico Intervalado: 15 min (8 tiros de 250m forte a 26–28 remadas/min x 1 min leve) • Resistência 6–7${spineSafe ? ' (controle lombar rigoroso)' : ''}.
+• Bicicleta Ergométrica: 20 min alternando 1 min carga forte x 1 min leve.
+• ${kneeSafe ? 'Escada (Opcional)' : 'Simulador de Escada'}: ${kneeSafe ? 'Optar por Bike ou Remador.' : '15 min alternando 2 min nível 7–8 x 1 min nível 11–13 (máx. 20).'}`,
+          fri: `[CARDIO SUGERIDO • INTERMEDIÁRIO]
+• Esteira Progressiva: 25 min subindo de 6,0 até 10,5–11,5 km/h (máx. 20) • Inclinação: 2–5 (máx. 15).
+• Bicicleta Ergométrica: 25 min estilo spinning moderado (subidas sentado, 75–85 rpm).
+• Remador Ergométrico: 15–20 min contínuos • Resistência 6–7 • 24 remadas/min.
+• ${kneeSafe ? 'Escada (Opcional)' : 'Simulador de Escada'}: ${kneeSafe ? 'Manter Bike ou Remador.' : '18 min • Vel. nível 8–11 (máx. 20).'}`,
+          sat: `[CARDIO SUGERIDO • INTERMEDIÁRIO]
+• ${spineSafe ? 'Combo Bike + Remador Leve + Esteira (Adaptado)' : 'CrossFit / Funcional + Remador (Principal)'}: ${spineSafe ? '15 min bike moderada + 10 min esteira (6,0 km/h, incl. 6–8).' : 'EMOM 15 min: Min 1: 200m Remador Ergométrico • Min 2: 12 polichinelos ou kettlebell swing leve • Min 3: 30s prancha.'}
+• Esteira ou Escada: Esteira 25 min a 8,5–10,0 km/h (incl. 2–4) ou Escada 20 min nível 8–11 (máx. 20).
+• Bicicleta Ergométrica: 25–30 min contínuos em Zona 2–3.`,
+          sun: `[CARDIO SUGERIDO • INTERMEDIÁRIO]
+• Esteira Zona 2: 30–40 min • Vel. 5,5–6,5 km/h (máx. 20) • Inclinação: 3–6 (máx. 15).
+• Bicicleta Ergométrica ou Remador Ergométrico: 25–30 min bem leve (ou descanso ativo com alongamento).
+• Dica de Nível: Melhora a recuperação cardiovascular para a semana seguinte.`
+        };
+        return plans[day] || plans.mon;
+      } else {
+        // advanced
+        const plans = {
+          mon: `[CARDIO SUGERIDO • AVANÇADO]
+• ${kneeSafe ? 'Bicicleta Ergométrica / Air Bike Pesada (Principal)' : 'Simulador de Escada Intenso (Principal)'}: ${kneeSafe ? '25 min com intervalos de carga alta (2 min forte x 1 min ativo, 85–95 rpm).' : '20–25 min alternando 2 min nível 13–16 x 1 min nível 9–11 (máx. 20).'}
+• Esteira Inclinada Forte: 25 min • Vel. 6,0–7,2 km/h (máx. 20) • Inclinação: 11–15 (máx. 15).
+• Bicicleta Ergométrica: 25 min em carga moderada-alta (80–90 rpm).
+• Remador Ergométrico: 15–20 min • Resistência 7–8 (de 10) • 26–28 remadas/min em ritmo sustentado.`,
+          tue: `[CARDIO SUGERIDO • AVANÇADO]
+• HIIT na Esteira: 20 min (10 tiros de 45s a 14,5–17,5 km/h x 45s a 6,0–7,0 km/h; máx. 20) • Inclinação: 1–3 (máx. 15).
+• Remador Ergométrico HIIT: 16 min (8 tiros de 500m forte a 28–30 remadas/min x 1 min ativo) • Resistência 7–9.
+• Bicicleta Ergométrica / Spinning Pesado: 25 min com sprints de 30s a cada 2 min.
+• ${kneeSafe ? 'Escada (Adaptada)' : 'Simulador de Escada'}: ${kneeSafe ? 'Priorizar Bike ou Remador.' : '20 min • Vel. nível 12–16 (máx. 20).'}`,
+          wed: `[CARDIO SUGERIDO • AVANÇADO]
+• Esteira — Corrida Contínua / Progressiva: 25–30 min • Vel. 11,5–14,5 km/h (máx. 20) • Inclinação: 1–4 (máx. 15).
+• Remador Ergométrico (Resistência): 20 min contínuos (ou 4.000m) • Resistência 7–8 • 25–27 remadas/min.
+• Bicicleta Ergométrica: 25–30 min Zona 3 (85–90 rpm).
+• ${kneeSafe ? 'Escada (Opcional)' : 'Simulador de Escada'}: ${kneeSafe ? 'Manter Bike ou Remador.' : '20 min contínuos • Vel. nível 12–15 (máx. 20).'}`,
+          thu: `[CARDIO SUGERIDO • AVANÇADO]
+• Esteira Inclinada Potência: 25 min • Vel. 6,0–7,5 km/h (máx. 20) • Inclinação: 12–15 (máx. 15) p/ glúteos e posteriores.
+• Bicicleta Ergométrica Potência: 25 min (8 blocos de 1 min carga máxima x 1 min giro leve).
+• Remador Ergométrico: 18 min (6x 3 min ritmo forte a 26–28 remadas/min x 45s leve) • Resistência 7–8${spineSafe ? ' (atenção à lombar)' : ''}.
+• ${kneeSafe ? 'Escada (Opcional)' : 'Simulador de Escada'}: ${kneeSafe ? 'Optar por Bike ou Esteira inclinada.' : '20 min • Vel. nível 12–15 (máx. 20).'}`,
+          fri: `[CARDIO SUGERIDO • AVANÇADO]
+• HIIT — Sprint na Esteira: 15–18 min (10–12 tiros de 30s a 16,0–20,0 km/h x 45s a 6,0 km/h; máx. 20) • Inclinação: 1–2 (máx. 15).
+• ${kneeSafe ? 'Bicicleta Ergométrica Sprint (Alternativa)' : 'Simulador de Escada Explosivo'}: ${kneeSafe ? '18 min com sprints máximos de 30s (100+ rpm).' : '18 min alternando 1 min nível 16–20 x 1 min nível 10–12 (máx. 20).'}
+• Remador Ergométrico Sprint: 15 min (10 tiros de 30s potência máxima a 30+ remadas/min x 45s leve) • Resistência 8–9.
+• Bicicleta Ergométrica: 20 min HIIT (30s sprint x 45s giro solto).`,
+          sat: `[CARDIO SUGERIDO • AVANÇADO]
+• ${spineSafe ? 'Combo Bike + Escada + Remador Leve (Adaptado)' : 'CrossFit / WOD Metabólico (Principal)'}: ${spineSafe ? '10 min bike forte + 10 min escada (nível 13–16) + 10 min esteira (6,5 km/h, incl. 12–15).' : 'AMRAP 16 min: 250m Remador Ergométrico (resistência 7–8) + 250m Esteira (14–16 km/h) + 10 burpees + 15 kettlebell swings.'}
+• Simulador de Escada: 25 min • Vel. nível 13–16 (máx. 20).
+• Bicicleta Ergométrica: 30 min em intensidade forte sustentada.`,
+          sun: `[CARDIO SUGERIDO • AVANÇADO]
+• Esteira Zona 2 Longa: 35–45 min • Vel. 9,0–11,0 km/h (incl. 1–2) ou caminhada 6,5 km/h (incl. 6–8; máx. 20 / incl. 15).
+• Bicicleta Ergométrica Zona 2: 40 min contínuos (75–85 rpm, carga leve-moderada).
+• Remador Ergométrico Zona 2: 25–30 min contínuos • Resistência 5–6 • 20–22 remadas/min (ou descanso total se houver fadiga).`
+        };
+        return plans[day] || plans.mon;
+      }
+    }
+    window.getCardioPlan = getCardioPlan;
+
     function assembleSpecificWorkouts(level, goal, cardio, limitKnee, limitSpine, limitShoulder, waterLiters) {
         let cardioDesc = "";
         if (cardio === 'cardio_low') {
@@ -6049,8 +6212,7 @@
 - Cadeira Extensora (2x15 - carga bem leve para irrigação)
 - Panturrilha no banco/chão (3x15)
 - Abdominal infra ou prancha no chão (3 séries de 15 a 20s)
-- Intervalo: 1min30 entre séries. Não chegue à falha muscular!
-- ${cardioDesc}`;
+- Intervalo: 1min30 entre séries. Não chegue à falha muscular!`;
             document.getElementById('food_mon').value = "Alimentação simples de adaptação: Café com 2 ovos mexidos + 1 fruta com aveia. Almoço com metade do prato de vegetais, 1 concha de arroz, 1 concha de feijão e filé de frango grelhado (120g). Jantar leve (omelete ou sopa com carne magra).";
             document.getElementById('rest_mon').value = `Meta de hidratação: Beber ${waterLiters}L de água distribuídos ao longo do dia. Dormir 7h a 8h.`;
 
@@ -6060,8 +6222,7 @@
 - Supino reto na máquina articulada (3x12 - costas bem apoiadas)
 - ${backBase} (3x12)
 - Tríceps na polia com barra reta (2x15)
-- Rosca bíceps com halteres leves (2x12)
-- ${cardioDesc}`;
+- Rosca bíceps com halteres leves (2x12)`;
             document.getElementById('food_tue').value = "Manter refeições nos mesmos horários. Lanche da tarde: 1 iogurte natural com frutas ou punhado pequeno de castanhas. Evitar líquidos açucarados e frituras.";
             document.getElementById('rest_tue').value = "Alongamento leve para trapézio e peitoral. Evitar telas 30 minutos antes de deitar.";
 
@@ -6078,8 +6239,7 @@
 - Elevação pélvica no colchonete sem peso (3x15)
 - ${legCurlBase} (3x12-15)
 - Cadeira Abdutora (3x15)
-- Prancha isométrica (3x20s com joelhos apoiados se necessário)
-- ${cardioDesc}`;
+- Prancha isométrica (3x20s com joelhos apoiados se necessário)`;
             document.getElementById('food_thu').value = "Carboidrato complexo 1h antes do treino (1 banana com farelo de aveia) para ter energia estável. Pós-treino: refeição sólida com proteína e salada.";
             document.getElementById('rest_thu').value = "Elevar as pernas por 10 minutos após o banho para diminuir a sensação de pernas pesadas.";
 
@@ -6088,7 +6248,6 @@
 - Circuito leve de fechamento: Puxada alta (2x12) + Supino máquina (2x12) + Leg Press leve (2x12)
 - ${shoulderBase} (3x12)
 - Abdominal supra no colchonete (3x15)
-- 20 minutos de caminhada prazerosa
 - Comemorar a primeira semana concluída!`;
             document.getElementById('food_fri').value = "Sexta sem fugir do plano: manter água ao lado durante jantares sociais e optar por fontes magras e salada fresca.";
             document.getElementById('rest_fri').value = "Avaliar a sensação corporal dos primeiros 5 dias e manter a constância no fim de semana.";
@@ -6098,8 +6257,7 @@
 - 10 minutos de mobilidade articular global (ombros, quadril e tornozelos)
 - Prancha isométrica adaptada (3x20-30s)
 - Ponte de glúteo no colchonete (3x15)
-- Abdominal supra controlado (3x12)
-- 25 a 30 minutos de caminhada leve ou bicicleta ergométrica em ritmo confortável`;
+- Abdominal supra controlado (3x12)`;
             document.getElementById('food_sat').value = "Manter refeições simples, ricas em proteínas magras, frutas e boa hidratação ao longo do sábado.";
             document.getElementById('rest_sat').value = `Bater ${waterLiters}L de água e garantir sono reparador de 7h30 a 8h.`;
 
@@ -6119,8 +6277,7 @@
 - Cadeira Extensora (3x12 com 2 segundos de isometria no topo)
 - ${legCurlBase} (4x10)
 - Panturrilha em pé (4x15)
-- Prancha abdominal (3x45s) + Abdominal infra no banco (3x15)
-- ${cardioDesc}`;
+- Prancha abdominal (3x45s) + Abdominal infra no banco (3x15)`;
             document.getElementById('food_mon').value = "Nutrição alinhada ao objetivo: 1.8g de proteína por kg corporal. Almoço com carboidrato limpo (arroz integral ou batata), feijão e filé de peito de frango (150-180g). Lanche pré-treino nutritivo.";
             document.getElementById('rest_mon').value = `Ingerir rigorosamente ${waterLiters}L de água. Dormir 7h30 a 8h para síntese e reparo.`;
 
@@ -6130,8 +6287,7 @@
 - Puxada alta na polia com pegada supinada (4x10)
 - ${backBase} (3x10)
 - ${shoulderBase} (4x12)
-- Tríceps testa ou corda (3x12) em biset com Rosca direta com barra (3x12)
-- ${cardioDesc}`;
+- Tríceps testa ou corda (3x12) em biset com Rosca direta com barra (3x12)`;
             document.getElementById('food_tue').value = "Reforço proteico em todas as refeições. Pós-treino: Whey com fruta ou 3 ovos cozidos com torrada integral.";
             document.getElementById('rest_tue').value = "Mobilidade de escápulas e peitoral após a sessão.";
 
@@ -6149,8 +6305,7 @@
 - Stiff com halteres ou barra (3x10 - mantendo a coluna 100% neutra)
 - Cadeira Flexora (3x12 com série decrescente na última)
 - Cadeira Abdutora (3x15)
-- Panturrilha no Leg Press (4x15)
-- ${cardioDesc}`;
+- Panturrilha no Leg Press (4x15)`;
             document.getElementById('food_thu').value = "Carboidrato estratégico no pré-treino para manter alto rendimento nas séries de perna. Jantar com carnes magras ou peixe.";
             document.getElementById('rest_thu').value = "Pernas elevadas e hidratação ativa constante.";
 
@@ -6159,8 +6314,7 @@
 - Supino reto com barra ou halteres (3x10)
 - Remada unilateral com halter (serrote) (3x10 cada lado)
 - Elevação lateral no cabo/polia (4x12)
-- Tríceps francês + Rosca martelo (3x12)
-- Cardio ritmado de 20 minutos (FC em 70-75% da máxima)`;
+- Tríceps francês + Rosca martelo (3x12)`;
             document.getElementById('food_fri').value = "Manter a consistência na sexta-feira à noite. Beber 2 copos de água para cada refeição e evitar excessos calóricos.";
             document.getElementById('rest_fri').value = "Revisão dos pesos utilizados na semana e preparação para o treino complementar de sábado.";
 
@@ -6171,8 +6325,7 @@
 - ${backBase} (3x12)
 - Flexão de braço ou Supino máquina (3x12)
 - Elevação lateral com halteres (3x15)
-- Circuito de Core: Prancha (3x45s) + Abdominal bicicleta (3x20)
-- ${cardioDesc}`;
+- Circuito de Core: Prancha (3x45s) + Abdominal bicicleta (3x20)`;
             document.getElementById('food_sat').value = "Manter aporte proteico e carboidratos limpos no pré e pós-treino de sábado.";
             document.getElementById('rest_sat').value = `Cumprir ${waterLiters}L de água e alongar cadeia posterior após o treino.`;
 
@@ -6192,8 +6345,7 @@
 - Leg Press 45° (4x10 com pausa curta de 10s na última série)
 - Cadeira Extensora (4x12 com série decrescente dupla na última)
 - Panturrilha em pé no Smith (5x15 com 3s na excêntrica)
-- Prancha com peso sobre as costas (4x1min)
-- ${cardioDesc}`;
+- Prancha com peso sobre as costas (4x1min)`;
             document.getElementById('food_mon').value = "Dieta calibrada: 2.0g a 2.2g de proteína/kg. Alto glicogênio pré-treino (aveia, frutas ou arroz branco) e pós-treino com rápida assimilação.";
             document.getElementById('rest_mon').value = `Bater no mínimo ${waterLiters}L de água e eletrólitos. Sono anabólico de 8 horas.`;
 
@@ -6204,8 +6356,7 @@
 - Crucifixo no cabo/polia (3x12 com contração máxima)
 - ${shoulderBase} (4x10)
 - Elevação lateral com halteres (5x12-15 com execução estrita)
-- Tríceps testa com barra W + Tríceps corda (4x10-12)
-- ${cardioDesc}`;
+- Tríceps testa com barra W + Tríceps corda (4x10-12)`;
             document.getElementById('food_tue').value = "Controle minucioso de calorias e macros. Fracionamento em 4 a 5 refeições com alta densidade nutricional.";
             document.getElementById('rest_tue').value = "Alongamento fascial leve de peitorais e manguito.";
 
@@ -6216,8 +6367,7 @@
 - Puxada com triângulo na polia (3x10)
 - Crucifixo inverso no voador ou com halteres (4x15)
 - Rosca Scott na máquina ou banco (4x10 com ênfase na fase excêntrica)
-- Rosca alternada com halteres (3x10)
-- 15 min de cardio leve para depuração de lactato`;
+- Rosca alternada com halteres (3x10)`;
             document.getElementById('food_wed').value = "Ingestão abundante de antioxidantes, ômega-3 e fibras para combater inflamação muscular.";
             document.getElementById('rest_wed').value = "Recuperação profunda. Monitorar a prontidão física.";
 
@@ -6227,8 +6377,7 @@
 - Stiff com barra (4x10 mantendo amplitude máxima segura)
 - ${legCurlBase} (4x10 com excêntrica de 3 segundos)
 - Cadeira Adutora e Abdutora (3x15 cada)
-- Panturrilha sentado no banco sóleo (4x15)
-- ${cardioDesc}`;
+- Panturrilha sentado no banco sóleo (4x15)`;
             document.getElementById('food_thu').value = "Refeição pós-treino reforçada em carboidratos complexos e proteínas para repor depósitos intramusculares.";
             document.getElementById('rest_thu').value = "Banho de contraste ou liberação miofascial manual para pernas.";
 
@@ -6238,8 +6387,7 @@
 - Elevação lateral na polia por trás das costas (4x12)
 - Super-série: Rosca direta barra reta (4x10) + Tríceps paralelas ou banco (4x10)
 - Super-série: Rosca martelo na corda (3x12) + Tríceps francês cabo (3x12)
-- Abdominal na polia (crunches) (4x15)
-- Treino Intervalado: 15 minutos (30s intensidade máxima x 45s repouso)`;
+- Abdominal na polia (crunches) (4x15)`;
             document.getElementById('food_fri').value = "Manutenção estrita do planejamento alimentar no fim de semana para não sabotar os ganhos e a definição.";
             document.getElementById('rest_fri').value = "Boa noite de sono para render no treino complementar de sábado.";
 
@@ -6249,8 +6397,7 @@
 - ${backBase} com foco em contração de pico (4x10-12)
 - Elevação lateral no cabo/polia (4x15) + Face pull (4x15)
 - Panturrilha sentado ou no Leg Press (4x15-20)
-- Core Avançado: Ab wheel ou Elevação de pernas na barra (4x12-15) + Prancha lateral (3x45s/lado)
-- ${cardioDesc}`;
+- Core Avançado: Ab wheel ou Elevação de pernas na barra (4x12-15) + Prancha lateral (3x45s/lado)`;
             document.getElementById('food_sat').value = "Manter precisão nos macros e hidratação elevada no sábado para sustentar o volume semanal.";
             document.getElementById('rest_sat').value = `Bater ${waterLiters}L de água + eletrólitos e realizar liberação miofascial.`;
 
@@ -6269,6 +6416,8 @@
             if (foodEl) foodEl.value = getMealPlan(goal, day);
             const restEl = document.getElementById('rest_' + day);
             if (restEl) restEl.value = getRestPlan(day, waterLiters);
+            const cardioEl = document.getElementById('cardio_' + day);
+            if (cardioEl) cardioEl.value = getCardioPlan(level, day, limitKnee, limitSpine);
         });
     }
 
@@ -6770,6 +6919,7 @@
     const train = (document.getElementById('train_' + day) || {}).value || '';
     const food = (document.getElementById('food_' + day) || {}).value || '';
     const rest = (document.getElementById('rest_' + day) || {}).value || '';
+    const cardio = (document.getElementById('cardio_' + day) || {}).value || '';
 
     let text = `⚡ *VIRADA 30 • ${dayNames[day] || day}* ⚡\n`;
     text += `👤 Aluno: ${name}\n`;
@@ -6777,6 +6927,7 @@
     text += `🏋️ *TREINO DO DIA:*\n${train}\n\n`;
     text += `🥗 *ALIMENTAÇÃO BASE:*\n${food}\n\n`;
     text += `💧 *HIDRATAÇÃO & REPOUSO:*\n${rest}\n\n`;
+    if (cardio) text += `🔥 *CARDIO SUGERIDO:*\n${cardio}\n\n`;
     text += `_Metodologia VIRADA 30 • Diego Santos (WhatsApp: 47 99954-5896)_`;
     return text;
   }
@@ -8543,6 +8694,35 @@
 }
 
 /* CARDS DE DESCANSO E HIDRATAÇÃO */
+.v30-cardio-header {
+    border-color: rgba(251, 146, 60, 0.45) !important;
+    background: rgba(251, 146, 60, 0.12) !important;
+    color: #fdba74 !important;
+}
+.v30-cardio-card {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    margin: 4px 0;
+    border: 1.5px solid rgba(251, 146, 60, 0.32);
+    border-radius: 8px;
+    background: #1b130e;
+    color: #e2e8f0;
+    font-size: 12px;
+    line-height: 1.45;
+    box-sizing: border-box;
+}
+.v30-cardio-card .v30-card-icon {
+    color: #fb923c;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.v30-cardio-title {
+    color: #fb923c;
+    font-weight: 800;
+}
 .v30-rest-card {
     width: 100%;
     display: flex;
@@ -8800,6 +8980,14 @@ function addPlanButtons(){
       field.style.display = 'none';
     }
 
+    if (type === 'cardio' && typeof window.getCardioPlan === 'function' && (!String(field.value || '').trim() || (String(field.value).includes('[CARDIO SUGERIDO') && !String(field.value).includes('Remador')))) {
+      const dayCode = fieldId.replace('cardio_', '');
+      const lvlEl = document.querySelector('input[name="user_level"]:checked');
+      const lvl = lvlEl ? lvlEl.value : 'beginner_zero';
+      const lKnee = Boolean(document.getElementById('limit_knee')?.checked);
+      const lSpine = Boolean(document.getElementById('limit_spine')?.checked);
+      field.value = window.getCardioPlan(lvl, dayCode, lKnee, lSpine);
+    }
     const rawVal = String(field.value || '').trim();
     directBox.innerHTML = '';
 
@@ -8810,6 +8998,7 @@ function addPlanButtons(){
       if (type === 'train') emptyText = '<strong>Nenhum treino prescrito ainda.</strong><br>Clique em <em>"Gerar Análise & Montar Treino"</em> acima.';
       else if (type === 'food') emptyText = '<strong>Nenhum cardápio sugerido ainda.</strong><br>Clique em <em>"Gerar Análise & Montar Treino"</em> acima.';
       else if (type === 'rest') emptyText = '<strong>Nenhuma orientação de descanso ainda.</strong><br>Clique em <em>"Gerar Análise & Montar Treino"</em> acima.';
+      else if (type === 'cardio') emptyText = '<strong>Nenhum cardio sugerido ainda.</strong><br>Clique em <em>"Gerar Análise & Montar Treino"</em> acima.';
       emptyMsg.innerHTML = emptyText;
       directBox.appendChild(emptyMsg);
     } else {
@@ -8823,6 +9012,7 @@ function addPlanButtons(){
           header.className = 'v30-plan-header';
           if (type === 'food') header.classList.add('v30-food-header');
           if (type === 'rest') header.classList.add('v30-rest-header');
+          if (type === 'cardio') header.classList.add('v30-cardio-header');
           header.innerHTML = `<strong>${l}</strong>`;
           directBox.appendChild(header);
           return;
@@ -8831,6 +9021,9 @@ function addPlanButtons(){
         const clean = l.replace(/^[\s\-•]+/, '').trim();
 
         if (type === 'train') {
+          if (/^(cardio (leve|moderado|de alta intensidade|ritmado)|treino intervalado:|15 min de cardio leve|20 minutos de caminhada prazerosa)/i.test(clean)) {
+            return;
+          }
           const page = findPage(clean);
           if (page) {
             const btn = document.createElement('button');
@@ -8897,6 +9090,31 @@ function addPlanButtons(){
             const restTitle = clean.substring(0, colonIdx).trim();
             const restDesc = clean.substring(colonIdx + 1).trim();
             card.innerHTML = `<span class="v30-card-icon">${iconSvg}</span> <div class="v30-card-body"><strong class="v30-rest-title">${restTitle}:</strong> <span>${restDesc}</span></div>`;
+          } else {
+            card.innerHTML = `<span class="v30-card-icon">${iconSvg}</span> <div class="v30-card-body"><strong>${clean}</strong></div>`;
+          }
+          directBox.appendChild(card);
+        } else if (type === 'cardio') {
+          let iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>';
+          if (/hiit|intervalado|sprint|crossfit|wod/i.test(clean)) {
+            iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>';
+          } else if (/bicicleta|bike|spinning|pedal/i.test(clean)) {
+            iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-3-3 4-3 2 3h2"/></svg>';
+          } else if (/escada/i.test(clean)) {
+            iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 20 8 20 8 16 12 16 12 12 16 12 16 8 20 8"/></svg>';
+          } else if (/remador|remo/i.test(clean)) {
+            iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0"/><path d="M4 13l7-7 4 4-7 7"/><path d="M15 6l5 5"/></svg>';
+          } else if (/dica/i.test(clean)) {
+            iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+          }
+
+          const card = document.createElement('div');
+          card.className = 'v30-cardio-card';
+          const colonIdx = clean.indexOf(':');
+          if (colonIdx !== -1) {
+            const cTitle = clean.substring(0, colonIdx).trim();
+            const cDesc = clean.substring(colonIdx + 1).trim();
+            card.innerHTML = `<span class="v30-card-icon">${iconSvg}</span> <div class="v30-card-body"><strong class="v30-cardio-title">${cTitle}:</strong> <span>${cDesc}</span></div>`;
           } else {
             card.innerHTML = `<span class="v30-card-icon">${iconSvg}</span> <div class="v30-card-body"><strong>${clean}</strong></div>`;
           }
@@ -8969,6 +9187,7 @@ function addPlanButtons(){
     let editLabel = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;vertical-align:middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Editar texto';
     if (type === 'food') editLabel = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;vertical-align:middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Editar cardápio';
     else if (type === 'rest') editLabel = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;vertical-align:middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Editar descanso';
+    else if (type === 'cardio') editLabel = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;vertical-align:middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Editar cardio';
     else editLabel = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;vertical-align:middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Editar treino';
     toggleBtn.innerHTML = editLabel;
 
@@ -8989,14 +9208,15 @@ function addPlanButtons(){
       renderColumn('train_' + day, 'train');
       renderColumn('food_' + day, 'food');
       renderColumn('rest_' + day, 'rest');
+      renderColumn('cardio_' + day, 'cardio');
     });
   }
 
   days.forEach(day => {
-    ['train_' + day, 'food_' + day, 'rest_' + day].forEach(id => {
+    ['train_' + day, 'food_' + day, 'rest_' + day, 'cardio_' + day].forEach(id => {
       const field = document.getElementById(id);
       if (!field) return;
-      const type = id.startsWith('train') ? 'train' : (id.startsWith('food') ? 'food' : 'rest');
+      const type = id.startsWith('train') ? 'train' : (id.startsWith('food') ? 'food' : (id.startsWith('rest') ? 'rest' : 'cardio'));
       renderColumn(id, type);
       if (!field.dataset.v30Bound) {
         field.dataset.v30Bound = '1';
@@ -9021,7 +9241,19 @@ document.addEventListener('click',e=>{
  if(el&&/analis|gerar|montar treino|gerar plano|recalcular/i.test((el.innerText||el.value||''))){setTimeout(()=>{buildGuide();addPlanButtons();},250);}
 });
 document.addEventListener('change',e=>{
- if(e.target&&e.target.matches('input[name="user_level"],input[name="user_sex"],input[name="user_goal"],#user_weight_current')){setTimeout(()=>{addPlanButtons();},100);}
+ if(e.target&&e.target.matches('input[name="user_level"],input[name="user_sex"],input[name="user_goal"],#user_weight_current,#limit_knee,#limit_spine')){
+  if(e.target.matches('input[name="user_level"],#limit_knee,#limit_spine') && typeof window.getCardioPlan === 'function'){
+    const lvlEl = document.querySelector('input[name="user_level"]:checked');
+    const lvl = lvlEl ? lvlEl.value : 'beginner_zero';
+    const lKnee = Boolean(document.getElementById('limit_knee')?.checked);
+    const lSpine = Boolean(document.getElementById('limit_spine')?.checked);
+    ['mon','tue','wed','thu','fri','sat','sun'].forEach(d => {
+      const el = document.getElementById('cardio_' + d);
+      if (el) el.value = window.getCardioPlan(lvl, d, lKnee, lSpine);
+    });
+  }
+  setTimeout(()=>{addPlanButtons();},100);
+}
 });
 })();
 </script>
