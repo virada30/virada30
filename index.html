@@ -4151,7 +4151,7 @@
                     </div>
                     <div class="v30-card-content">
                         <div class="v30-card-title">Treino Semanal</div>
-                        <div class="v30-card-status" id="hub_badge_planner">Seg a Sex • Nutrição</div>
+                        <div class="v30-card-status" id="hub_badge_planner">Seg a Dom • Nutrição</div>
                     </div>
                 </div>
 
@@ -4177,17 +4177,6 @@
                     </div>
                 </div>
 
-                <!-- Card 6: Carga Máxima (1RM) -->
-                <div class="v30-hub-card" onclick="openModule('rm')">
-                    <div class="v30-card-icon-wrap">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
-                    </div>
-                    <div class="v30-card-content">
-                        <div class="v30-card-title">Carga Máxima</div>
-                        <div class="v30-card-status">Calculadora 1RM</div>
-                    </div>
-                </div>
-
                 <!-- Card 7: Superação Diego Santos -->
                 <div class="v30-hub-card" onclick="openModule('testimonial')">
                     <div class="v30-card-icon-wrap">
@@ -4199,16 +4188,6 @@
                     </div>
                 </div>
 
-                <!-- Card 8: Dúvidas (FAQ) -->
-                <div class="v30-hub-card" onclick="openModule('faq')">
-                    <div class="v30-card-icon-wrap">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/><line x1="12" y1="13" x2="12.01" y2="13"/></svg>
-                    </div>
-                    <div class="v30-card-content">
-                        <div class="v30-card-title">Dúvidas (FAQ)</div>
-                        <div class="v30-card-status">Diretrizes do Método</div>
-                    </div>
-                </div>
             </div>
 
             <!-- BOTOES DE CONTATO: SUPORTE (ESQUERDA) & CONSULTORIA VIP (DIREITA) -->
@@ -8195,7 +8174,7 @@
   }
 
   function toggleViewAll() {
-    const modules = ['bio', 'habits', 'planner', 'bioanalysis', 'guide', 'rm', 'testimonial', 'faq'];
+    const modules = ['bio', 'habits', 'planner', 'bioanalysis', 'guide', 'testimonial'];
     const hubEl = document.getElementById('mod_hub');
     const btnViewAll = document.getElementById('btn_toggle_view_all');
     const btnHub = document.getElementById('btn_nav_hub');
@@ -8406,6 +8385,28 @@
     box-sizing: border-box;
     line-height: 1.45;
     transition: all 0.15s ease-in-out;
+}
+.v30-direct-btn-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 0;
+}
+.v30-load-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+    max-width: 100%;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(204, 255, 0, 0.10);
+    border: 1px solid rgba(204, 255, 0, 0.28);
+    color: #ccff00;
+    font-size: 11px;
+    font-weight: 700 !important;
+    line-height: 1.25;
 }
 .v30-direct-btn strong {
     font-weight: 800 !important;
@@ -8641,6 +8642,78 @@ function buildGuide(){
  section.append(title,guideBody);
  if(host===document.body) host.prepend(section); else host.appendChild(section);
 }
+function suggestLoadFor(exerciseText) {
+  const t = norm(exerciseText);
+  const levelEl = document.querySelector('input[name="user_level"]:checked');
+  const sexEl = document.querySelector('input[name="user_sex"]:checked');
+  const weightEl = document.getElementById('user_weight_current');
+
+  const level = levelEl ? levelEl.value : 'beginner_zero';
+  const sex = sexEl ? sexEl.value : 'male';
+  const rawW = weightEl ? parseFloat(weightEl.value) : 75;
+  const refW = Number.isFinite(rawW) && rawW > 30 ? Math.min(115, Math.max(45, rawW)) : 75;
+
+  const levelCfg = {
+    beginner_zero: { label: 'Iniciante', mult: 0.55, rpe: 'RPE 6-7' },
+    intermediate:  { label: 'Intermediário', mult: 1.0, rpe: 'RPE 7-8' },
+    advanced:      { label: 'Avançado', mult: 1.4, rpe: 'RPE 8-9' }
+  }[level] || { label: 'Iniciante', mult: 0.55, rpe: 'RPE 6-7' };
+
+  const sexMult = (sex === 'female') ? 0.72 : 1.0;
+
+  // Exercícios de peso corporal / isometria
+  if (/(prancha|flexao|flexão|abdominal supra|abdominal infra|abdominal bicicleta|elevacao de pernas|ponte de gluteo|ab wheel|burpee|hiperextensao|barra fixa|paralelas)/.test(t) && !/polia|maquina|máquina|com peso/.test(t)) {
+    const bwNote = level === 'advanced' ? 'Peso corporal (ou + carga leve)' : 'Peso corporal';
+    return `Carga sugerida (${levelCfg.label}): ${bwNote} • ${levelCfg.rpe}`;
+  }
+
+  // Coeficiente base em relação ao peso corporal de referência e tipo de equipamento
+  let baseRatio = 0.25;
+  let unitNote = 'total';
+  let step = 2;
+
+  if (/leg press/.test(t)) {
+    baseRatio = 1.15; unitNote = 'total'; step = 5;
+  } else if (/(agachamento|hack squat|elevacao pelvica|terra|stiff)/.test(t)) {
+    baseRatio = 0.55; unitNote = 'total'; step = 2;
+  } else if (/(cadeira extensora|mesa flexora|cadeira flexora|abdutora|adutora|panturrilha)/.test(t)) {
+    baseRatio = 0.42; unitNote = 'na máquina'; step = 5;
+  } else if (/(avanco|passada|bulgaro)/.test(t)) {
+    baseRatio = 0.14; unitNote = 'cada halter'; step = 2;
+  } else if (/(supino|puxada|pulldown|pull-down|remada)/.test(t)) {
+    if (/halter|unilateral|serrote/.test(t)) {
+      baseRatio = 0.18; unitNote = 'cada halter'; step = 2;
+    } else {
+      baseRatio = 0.45; unitNote = 'total'; step = 2;
+    }
+  } else if (/(desenvolvimento|arnold)/.test(t)) {
+    if (/halter/.test(t)) {
+      baseRatio = 0.14; unitNote = 'cada halter'; step = 2;
+    } else {
+      baseRatio = 0.30; unitNote = 'total'; step = 2;
+    }
+  } else if (/(elevacao lateral|elevacao frontal|crucifixo|face pull|manguito)/.test(t)) {
+    if (/cabo|polia|maquina|máquina|voador|peck/.test(t)) {
+      baseRatio = 0.18; unitNote = 'na polia/máq.'; step = 2;
+    } else {
+      baseRatio = 0.09; unitNote = 'cada halter'; step = 1;
+    }
+  } else if (/(rosca|triceps|tríceps|kickback|coice|frances|testa|corda|pulley|abdominal na polia|abdominal maquina)/.test(t)) {
+    if (/halter|alternada|martelo|concentrada/.test(t)) {
+      baseRatio = 0.12; unitNote = 'cada halter'; step = 1;
+    } else {
+      baseRatio = 0.24; unitNote = 'total/polia'; step = 2;
+    }
+  }
+
+  const rawTarget = refW * baseRatio * levelCfg.mult * sexMult;
+  const roundStep = (v) => Math.max(step, Math.round(v / step) * step);
+  const low = roundStep(rawTarget * 0.85);
+  const high = Math.max(low + step, roundStep(rawTarget * 1.15));
+
+  return `Carga sugerida (${levelCfg.label}): ${low}–${high} kg (${unitNote}) • ${levelCfg.rpe}`;
+}
+
 function addPlanButtons(){
   const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
@@ -8694,7 +8767,8 @@ function addPlanButtons(){
             btn.type = 'button';
             btn.className = 'v30-direct-btn';
             btn.setAttribute('title', 'Clique para abrir o guia visual de execução');
-            btn.innerHTML = `<span class="v30-direct-play">▶</span> <strong>${clean}</strong>`;
+            const loadHint = suggestLoadFor(clean);
+            btn.innerHTML = `<span class="v30-direct-play">▶</span><div class="v30-direct-btn-body"><strong>${clean}</strong><span class="v30-load-badge">⚖️ ${loadHint}</span></div>`;
             btn.onclick = () => openExercise(clean, page);
             directBox.appendChild(btn);
           } else {
@@ -8819,7 +8893,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 else {buildGuide();addPlanButtons();}
 document.addEventListener('click',e=>{
  const el=e.target.closest('button,[type=button],input[type=button]');
- if(el&&/analis|gerar|montar treino|gerar plano/i.test((el.innerText||el.value||''))){setTimeout(()=>{buildGuide();addPlanButtons();},250);}
+ if(el&&/analis|gerar|montar treino|gerar plano|recalcular/i.test((el.innerText||el.value||''))){setTimeout(()=>{buildGuide();addPlanButtons();},250);}
+});
+document.addEventListener('change',e=>{
+ if(e.target&&e.target.matches('input[name="user_level"],input[name="user_sex"],#user_weight_current')){setTimeout(()=>{addPlanButtons();},100);}
 });
 })();
 </script>
