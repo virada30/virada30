@@ -484,7 +484,7 @@
         /* GRID BIO */
         .grid-inputs-bio {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 14px;
             margin-bottom: 22px;
         }
@@ -3869,52 +3869,6 @@
                 min-width: auto !important;
             }
         }
-
-        /* PAINEL DE LEMBRETES INTELIGENTES: ÁGUA & MOVIMENTO */
-        .v30-reminder-card {
-            margin-top: 14px;
-            background: rgba(18, 24, 38, 0.75);
-            border: 1.5px solid rgba(56, 189, 248, 0.3);
-            border-radius: 14px;
-            padding: 14px 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-            transition: all 0.25s ease;
-        }
-        .v30-reminder-card:hover {
-            border-color: rgba(56, 189, 248, 0.55);
-        }
-        .v30-reminder-toast {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 999999;
-            max-width: 380px;
-            width: calc(100% - 48px);
-            background: #0b1120;
-            border: 2px solid #38bdf8;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.35);
-            border-radius: 16px;
-            padding: 16px 18px;
-            display: none;
-            flex-direction: column;
-            gap: 12px;
-            transform: translateY(-20px);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .v30-reminder-toast.active {
-            display: flex;
-            transform: translateY(0);
-            opacity: 1;
-        }
-        @media (max-width: 600px) {
-            .v30-reminder-toast {
-                top: 14px;
-                right: 14px;
-                left: 14px;
-                width: calc(100% - 28px);
-            }
-        }
 </style>
     <!-- GOOGLE FIREBASE SDK (COMPATIBLE PARA NAVEGADORES WEB) -->
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
@@ -4376,6 +4330,10 @@
                     <label class="form-label" for="user_weight_current">Peso Atual (kg):</label>
                     <input type="number" id="user_weight_current" class="input-text auto-save" step="0.1" placeholder="Ex.: 78.5">
                 </div>
+                <div>
+                    <label class="form-label" for="user_weight_goal">Peso Objetivo (kg):</label>
+                    <input type="number" id="user_weight_goal" class="input-text auto-save" step="0.1" min="20" max="500" placeholder="Ex.: 72.0">
+                </div>
             </div>
 
             <!-- QUANTO TEMPO ESTÁ NO PROJETO (PERGUNTA ÚNICA COM CAMPO LIVRE) -->
@@ -4695,6 +4653,19 @@
                             </div>
                         </div>
                     </label>
+                    <label class="option-card-label">
+                        <input type="radio" name="user_routine" value="very_intense" class="auto-save-radio">
+                        <div class="option-card-box">
+                            <div class="option-radio-indicator"></div>
+                            <div class="option-card-info">
+                                <span class="option-card-title">
+                                    <svg class="v30-svg-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                                    Muito Intenso / Atleta (6 a 7x/semana)
+                                </span>
+                                <span class="option-card-desc">Treinos diários incluindo sábados e domingos, com alta demanda metabólica.</span>
+                            </div>
+                        </div>
+                    </label>
                 </div>
             </div>
 
@@ -4802,35 +4773,18 @@
             <section class="section-block" id="planner_section">
             <div class="section-header">
                 <div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-                <h2 class="section-heading">3. Planner Semanal: Treino, Nutrição & Repouso (Segunda a Sexta)</h2>
+                <h2 class="section-heading">3. Planner Semanal: Treino, Nutrição & Repouso (Segunda a Domingo)</h2>
             </div>
             <p class="section-desc">Os campos abaixo recebem a montagem inteligente de treino, alimentação e hidratação gerada pela IA após o processamento no final da página. Você também pode editá-los livremente.</p>
 
             <!-- BARRA DE PROGRESSO E GAMIFICAÇÃO SEMANAL -->
-            <!-- BARRA DE AÇÃO RÁPIDA: RECALCULAR TREINOS COM CARGAS & VARIAÇÕES -->
-            <div style="background: rgba(204, 255, 0, 0.08); border: 1.5px solid #ccff00; border-radius: 14px; padding: 14px 18px; margin: 12px 0 20px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; box-shadow: 0 4px 20px rgba(204, 255, 0, 0.15);">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="background: rgba(204, 255, 0, 0.18); border: 1.5px solid #ccff00; border-radius: 10px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
-                        ⚡
-                    </div>
-                    <div>
-                        <strong style="color: #ccff00; font-size: 1.05rem; display: block;">Gerador Dinâmico de Treinos & Cargas VIRADA 30</strong>
-                        <span style="color: #cbd5e1; font-size: 0.82rem;">Recalcule para sortear novas variações de exercícios com sugestão de carga para seu nível e cardio detalhado.</span>
-                    </div>
-                </div>
-                <button type="button" onclick="recalculateWorkoutsAndDiet()" style="background: #ccff00; color: #08090b; border: none; border-radius: 10px; padding: 11px 22px; font-weight: 900; font-size: 0.92rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(204, 255, 0, 0.35);">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-                    RECALCULAR TREINOS & CARGAS
-                </button>
-            </div>
-
             <div class="weekly-progress-card" id="weekly_progress_box">
                 <div class="weekly-progress-top">
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                         <span style="font-weight: 800; font-size: 0.92rem; color: #ffffff;">Meta Semanal Cumprida</span>
                     </div>
-                    <span class="weekly-progress-stats" id="weekly_progress_text">0 de 5 dias concluídos (0%)</span>
+                    <span class="weekly-progress-stats" id="weekly_progress_text">0 de 7 dias concluídos (0%)</span>
                 </div>
                 <div class="weekly-progress-track">
                     <div class="weekly-progress-fill" id="weekly_progress_fill" style="width: 0%;"></div>
@@ -4851,47 +4805,7 @@
                 </div>
                 <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px;">
                     <button type="button" class="btn-water-action" onclick="resetWaterTracker()">Zerar Copos do Dia</button>
-                
-            <!-- PAINEL DE LEMBRETES INTELIGENTES: ÁGUA & MOVIMENTO -->
-            <div class="v30-reminder-card" id="v30_reminders_card">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div style="background: rgba(56, 189, 248, 0.15); border: 1.5px solid rgba(56, 189, 248, 0.4); border-radius: 10px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
-                            🔔
-                        </div>
-                        <div>
-                            <strong style="color: #ffffff; font-size: 0.96rem; display: block;">Lembretes no Celular • Água & Movimento</strong>
-                            <small style="color: #94a3b8; font-size: 0.76rem;">Alertas automáticos com som para acelerar o metabolismo e combater o sedentarismo</small>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <button type="button" id="btn_toggle_reminders" onclick="toggleReminders()" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1.5px solid #38bdf8; border-radius: 20px; padding: 7px 18px; font-weight: 800; font-size: 0.82rem; cursor: pointer; transition: all 0.2s ease;">
-                            Ativar Lembretes
-                        </button>
-                        <button type="button" onclick="testReminderAlert()" style="background: rgba(204, 255, 0, 0.12); color: #ccff00; border: 1px solid rgba(204, 255, 0, 0.35); border-radius: 20px; padding: 7px 14px; font-weight: 800; font-size: 0.78rem; cursor: pointer;">
-                            Testar Alerta ⚡
-                        </button>
-                    </div>
                 </div>
-
-                <!-- CONTROLES DE INTERVALO E STATUS -->
-                <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="color: #cbd5e1; font-size: 0.8rem; font-weight: 700;">Frequência dos Avisos:</span>
-                        <select id="reminder_interval_select" onchange="changeReminderInterval(this.value)" style="background: #141923; color: #ccff00; border: 1px solid #334155; border-radius: 8px; padding: 6px 12px; font-size: 0.78rem; font-weight: 800; cursor: pointer;">
-                            <option value="45">A cada 45 minutos (Atividade Intensa)</option>
-                            <option value="60" selected>A cada 1 hora (Padrão Recomendado)</option>
-                            <option value="90">A cada 1h30 (Moderado)</option>
-                            <option value="120">A cada 2 horas (Espaçado)</option>
-                        </select>
-                    </div>
-                    <div id="reminder_status_badge" style="font-size: 0.76rem; font-weight: 800; color: #64748b; display: flex; align-items: center; gap: 6px;">
-                        <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #64748b;"></span>
-                        Status: Desativado
-                    </div>
-                </div>
-            </div>
-</div>
             </div>
 
             <!-- SEGUNDA-FEIRA -->
@@ -5213,6 +5127,133 @@
                     </div>
                 </div>
             </div>
+            <!-- SÁBADO -->
+            <div class="week-day-card">
+                <div class="week-day-header" onclick="toggleDay('sat')">
+                    <div class="week-day-title">
+                        <span class="badge-day">Sábado</span>
+                        <span id="title_sat">Foco: Treino Complementar, Core & Condicionamento</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <label class="day-check-status" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="check_sat" class="auto-save"> Dia Cumprido
+                        </label>
+                        <div class="day-arrow-badge" id="arrow_sat">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); transform: rotate(0deg); display: block;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="week-day-body" id="body_sat" style="display: none;">
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-training"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/></svg>Treino Prescrito</div>
+                        <textarea class="pillar-textarea auto-save" id="train_sat" placeholder="O sistema preencherá aqui uma sugestão de treino; revise antes de executar..."></textarea>
+                    </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-food"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg>Alimentação Base</div>
+                        <textarea class="pillar-textarea auto-save" id="food_sat" placeholder="Sugestões gerais de alimentação; personalize com orientação adequada..."></textarea>
+                    </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-rest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Descanso & Hidratação</div>
+                        <textarea class="pillar-textarea auto-save" id="rest_sat" placeholder="Registre descanso e hidratação; a referência de água é aproximada..."></textarea>
+                    </div>
+                    <div class="weights-tracker-box">
+                        <div class="weights-tracker-header" onclick="toggleWeightsTracker('sat')">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><line x1="9" y1="12" x2="15" y2="12"/></svg>
+                                <span style="font-size: 0.8rem; font-weight: 800; color: #cbd5e1;">Anotar Cargas de Hoje (Sobrecarga Progressiva)</span>
+                            </div>
+                            <svg id="arrow_weights_sat" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2" style="transition: transform 0.2s ease; transform: rotate(0deg);"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                        <div id="body_weights_sat" style="display: none; margin-top: 10px;">
+                            <p style="font-size: 0.74rem; color: #94a3b8; margin: 0 0 8px 0;">Registre o exercício e a carga utilizada para comparar na próxima semana:</p>
+                            <div class="weights-grid-inputs">
+                                <input type="text" id="w_ex1_sat" class="input-text auto-save" placeholder="Ex.: Supino Reto" style="padding: 6px 10px; font-size: 0.8rem;">
+                                <input type="text" id="w_val1_sat" class="input-text auto-save" placeholder="Ex.: 30 kg (3x10)" style="padding: 6px 10px; font-size: 0.8rem;">
+                                <input type="text" id="w_ex2_sat" class="input-text auto-save" placeholder="Ex.: Agachamento" style="padding: 6px 10px; font-size: 0.8rem;">
+                                <input type="text" id="w_val2_sat" class="input-text auto-save" placeholder="Ex.: 60 kg (4x8)" style="padding: 6px 10px; font-size: 0.8rem;">
+                                <input type="text" id="w_ex3_sat" class="input-text auto-save" placeholder="Ex.: Remada / Puxada" style="padding: 6px 10px; font-size: 0.8rem;">
+                                <input type="text" id="w_val3_sat" class="input-text auto-save" placeholder="Ex.: 45 kg (3x12)" style="padding: 6px 10px; font-size: 0.8rem;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day-actions-bar">
+                        <button type="button" class="btn-share-day" onclick="shareDayWhatsApp('sat', event)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.961.954 3.03.954l.004-.001c3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.586-5.768-5.766-5.768zm9.799 5.766c-.002 5.419-4.406 9.82-9.824 9.82-1.708 0-3.328-.444-4.75-1.222l-5.256 1.378 1.403-5.122c-.854-1.479-1.32-3.178-1.322-4.854.002-5.419 4.407-9.821 9.825-9.821 5.42 0 9.825 4.402 9.824 9.821z"/></svg>
+                            Enviar Sábado no WhatsApp
+                        </button>
+                        <button type="button" class="btn-copy-day" onclick="copyDayText('sat', event)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            Copiar Sábado
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOMINGO -->
+            <div class="week-day-card">
+                <div class="week-day-header" onclick="toggleDay('sun')">
+                    <div class="week-day-title">
+                        <span class="badge-day">Domingo</span>
+                        <span id="title_sun">Foco: Recuperação Ativa, Mobilidade & Cardio Leve</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <label class="day-check-status" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="check_sun" class="auto-save"> Dia Cumprido
+                        </label>
+                        <div class="day-arrow-badge" id="arrow_sun">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); transform: rotate(0deg); display: block;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="week-day-body" id="body_sun" style="display: none;">
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-training"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/></svg>Treino Prescrito</div>
+                        <textarea class="pillar-textarea auto-save" id="train_sun" placeholder="O sistema preencherá aqui uma sugestão de treino; revise antes de executar..."></textarea>
+                    </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-food"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg>Alimentação Base</div>
+                        <textarea class="pillar-textarea auto-save" id="food_sun" placeholder="Sugestões gerais de alimentação; personalize com orientação adequada..."></textarea>
+                    </div>
+                    <div class="pillar-col">
+                        <div class="pillar-title pillar-rest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Descanso & Hidratação</div>
+                        <textarea class="pillar-textarea auto-save" id="rest_sun" placeholder="Registre descanso e hidratação; a referência de água é aproximada..."></textarea>
+                    </div>
+                    <div class="weights-tracker-box">
+                        <div class="weights-tracker-header" onclick="toggleWeightsTracker('sun')">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><line x1="9" y1="12" x2="15" y2="12"/></svg>
+                                <span style="font-size: 0.8rem; font-weight: 800; color: #cbd5e1;">Anotar Cargas de Hoje (Sobrecarga Progressiva)</span>
+                            </div>
+                            <svg id="arrow_weights_sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2" style="transition: transform 0.2s ease; transform: rotate(0deg);"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                        <div id="body_weights_sun" style="display: none; margin-top: 10px;">
+                            <p style="font-size: 0.74rem; color: #94a3b8; margin: 0 0 8px 0;">Registre o exercício e a carga utilizada para comparar na próxima semana:</p>
+                            <div class="weights-grid-inputs">
+                                <input type="text" id="w_ex1_sun" class="input-text auto-save" placeholder="Ex.: Supino Reto" style="padding: 6px 10px; font-size: 0.8rem;">
+                                <input type="text" id="w_val1_sun" class="input-text auto-save" placeholder="Ex.: 30 kg (3x10)" style="padding: 6px 10px; font-size: 0.8rem;">
+                                <input type="text" id="w_ex2_sun" class="input-text auto-save" placeholder="Ex.: Agachamento" style="padding: 6px 10px; font-size: 0.8rem;">
+                                <input type="text" id="w_val2_sun" class="input-text auto-save" placeholder="Ex.: 60 kg (4x8)" style="padding: 6px 10px; font-size: 0.8rem;">
+                                <input type="text" id="w_ex3_sun" class="input-text auto-save" placeholder="Ex.: Remada / Puxada" style="padding: 6px 10px; font-size: 0.8rem;">
+                                <input type="text" id="w_val3_sun" class="input-text auto-save" placeholder="Ex.: 45 kg (3x12)" style="padding: 6px 10px; font-size: 0.8rem;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day-actions-bar">
+                        <button type="button" class="btn-share-day" onclick="shareDayWhatsApp('sun', event)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.961.954 3.03.954l.004-.001c3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.586-5.768-5.766-5.768zm9.799 5.766c-.002 5.419-4.406 9.82-9.824 9.82-1.708 0-3.328-.444-4.75-1.222l-5.256 1.378 1.403-5.122c-.854-1.479-1.32-3.178-1.322-4.854.002-5.419 4.407-9.821 9.825-9.821 5.42 0 9.825 4.402 9.824 9.821z"/></svg>
+                            Enviar Domingo no WhatsApp
+                        </button>
+                        <button type="button" class="btn-copy-day" onclick="copyDayText('sun', event)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            Copiar Domingo
+                        </button>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- 4. MOTOR DE INTELIGÊNCIA ARTIFICIAL & BIOANÁLISE INTEGRADA -->
@@ -5310,7 +5351,7 @@
                             </div>
 
                             <div class="ia-insight-card">
-                                <div class="insight-header"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/></svg>Fundamentação do Treino Prescrito (Segunda a Sexta)</div>
+                                <div class="insight-header"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/></svg>Fundamentação do Treino Prescrito (Segunda a Domingo)</div>
                                 <div class="insight-body" id="ia_text_training_rationale"></div>
                             </div>
 
@@ -5706,6 +5747,7 @@
     const heightCm = num('user_height');
     const initial = num('user_weight_initial');
     const current = num('user_weight_current');
+    const goalWeight = num('user_weight_goal');
 
     if (age === null || age < 14 || age > 99) {
       validationError('Informe uma idade válida entre 14 e 99 anos.', 'user_age', silent);
@@ -5721,6 +5763,10 @@
     }
     if (current === null || current <= 0 || current > 500) {
       validationError('Informe um peso atual válido (maior que zero e até 500 kg).', 'user_weight_current', silent);
+      return null;
+    }
+    if (goalWeight !== null && (goalWeight <= 0 || goalWeight > 500)) {
+      validationError('Informe um peso objetivo válido (maior que zero e até 500 kg).', 'user_weight_goal', silent);
       return null;
     }
 
@@ -5783,18 +5829,11 @@
     if (limitBox) limitBox.style.display = limitParts.length ? 'block' : 'none';
     setText('ia_text_limitations', limitParts.join(' '));
 
-    let nutrition = `Gasto energético diário estimado (GET): ${result.tdee === null ? 'não calculado' : Math.round(result.tdee) + ' kcal/dia'}. `;
-    if (d.goal === 'fat_loss') {
-      nutrition += 'Para emagrecimento, um déficit calórico moderado favorece a queima sustentável de gordura preservando a massa magra. ';
-      nutrition += 'Suplementação recomendada: 3g a 5g de Creatina diários contínuos, 1 scoop de Whey Protein (30g) para bater as proteínas com saciedade, Multivitamínico com refeição e Ômega-3 (2 cápsulas/dia).';
-    } else if (d.goal === 'hypertrophy') {
-      nutrition += 'Para hipertrofia, garanta aporte proteico de 1.8 a 2.2 g/kg corporal e superávit energético moderado. ';
-      nutrition += 'Suplementação recomendada: 5g de Creatina todos os dias (com carboidrato), 1 a 2 scoops de Whey Protein pós-treino/lanches, Multivitamínico completo, Ômega-3 (proteção articular sob sobrecarga) e Zinco + Magnésio à noite.';
-    } else {
-      nutrition += 'Para recomposição corporal, mantenha ingestão proteica equilibrada (1.8 a 2.0 g/kg), treinos de força intensos e déficit leve. ';
-      nutrition += 'Suplementação recomendada: 5g de Creatina contínua, Whey Protein (30g) para praticidade proteica diária, Multivitamínico e Ômega-3.';
-    }
-    nutrition += ` Meta hídrica essencial (35 ml/kg): ${fmt(result.water)} L/dia.`;
+    let nutrition = `Gasto energético diário estimado (GET): ${result.tdee === null ? 'não calculado' : Math.round(result.tdee) + ' kcal/dia'}. É um ponto de partida para planejamento calórico. `;
+    if (d.goal === 'fat_loss') nutrition += 'Para emagrecimento, um déficit calórico moderado favorece a perda de gordura sustentável sem sacrifício excessivo de massa magra.';
+    else if (d.goal === 'hypertrophy') nutrition += 'Para hipertrofia, garanta aporte proteico adequado (1.6 a 2.2 g/kg) e superávit energético moderado.';
+    else nutrition += 'Para recomposição corporal, mantenha ingestão proteica equilibrada, treinos de força com boa intensidade e descanso de qualidade.';
+    nutrition += ` Meta de referência hídrica (35 ml/kg): ${fmt(result.water)} L/dia. Ajuste conforme temperatura ambiente e intensidade dos treinos.`;
     setText('ia_text_nutrition', nutrition);
 
     let skin = '';
@@ -5821,252 +5860,149 @@
   // 4. MONTAGEM DINÂMICA DE TREINOS COM PROTEÇÃO ARTICULAR
   
     // GERAÇÃO DE CARDÁPIO COMPLETO DE ACORDO COM O OBJETIVO
-    // ==========================================================================
-    // MOTORES DE VARIEDADE, SUPLEMENTAÇÃO DINÂMICA & PERIODIZAÇÃO ADAPTATIVA
-    // ==========================================================================
-    function pickRandom(arr) {
-      if (!arr || arr.length === 0) return '';
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    // BANCO DINÂMICO DE ESTRATÉGIAS DE WHEY PROTEIN
-    function getDynamicWhey(goal) {
-      const wheyOptions = [
-        "Whey Protein Concentrado 80% (30g a 40g - 1 a 1.5 scoops) batido com 200ml de água bem gelada e 1 colher de farelo de aveia + canela em pó (ótima saciedade e liberação gradual de aminoácidos).",
-        "Whey Protein Isolado (30g) batido com 150ml de água de coco ou água gelada e morangos frescos (absorção ultrarrápida para recuperação muscular pós-treino).",
-        "Shake Funcional Anabólico: 1 scoop de Whey (30g) + 1 banana média fatiada + 1 colher de sobremesa de pasta de amendoim integral + 200ml de leite vegetal ou desnatado.",
-        "Mingau Proteico VIRADA 30: 35g de aveia em flocos cozida em água com canela; após desligar o fogo, misture 1 scoop de Whey Protein sabor baunilha/chocolate para preservar os aminoácidos.",
-        "Creme Proteico Noturno / Lanche: 150g de iogurte natural desnatado misturado com 1 scoop de Whey Protein e 1 colher de sementes de chia (liberação prolongada durante a recuperação)."
-      ];
-      return pickRandom(wheyOptions);
-    }
-
-    // BANCO DINÂMICO DE ESTRATÉGIAS DE CREATINA
-    function getDynamicCreatine() {
-      const creatineOptions = [
-        "Creatina Monoidratada (5g todos os dias contínuos) tomada junto ao almoço com refeição rica em carboidratos (o pico fisiológico de insulina otimiza o transporte celular da fosfocreatina).",
-        "Creatina Creapure (5g diários) dissolvida no shake pós-treino com água e 1 fruta rápida (banana ou uva) para acelerar a ressíntese energética muscular.",
-        "Creatina Monoidratada 100% Pura (3g a 5g) tomada em horário fixo pela manhã com 250ml de água e limão, mantendo hidratação constante ao longo do dia.",
-        "Creatina Monoidratada (5g) tomada mesmo nos dias de descanso (manter a saturação celular constante é o segredo da força e da densidade muscular no VIRADA 30)."
-      ];
-      return pickRandom(creatineOptions);
-    }
-
-    // BANCO DINÂMICO DE SINERGIAS DE VITAMINAS & MINERAIS
-    function getDynamicVitamins(goal, day) {
-      const pools = [
-        "Vitamina D3 (2.000 a 4.000 UI) + Vitamina K2 (MK-7 100mcg) pela manhã junto com ovos ou azeite (vitaminas lipossolúveis exigem gordura para absorção celular, densidade óssea e equilíbrio hormonal).",
-        "Ômega-3 Ultra Concentrado (mínimo 1.200mg com alta fração EPA/DHA) junto ao almoço (potente ação anti-inflamatória articular e melhora da sensibilidade à insulina) + Coenzima Q10 (100mg).",
-        "Magnésio Bisglicinato / Quelato (350mg) + Zinco Quelato (30mg) tomados 35 minutos antes de dormir (relaxamento neuromuscular profundo, controle do cortisol e pico de síntese proteica no sono REM).",
-        "Complexo B Ativado (B6, B12, Ácido Fólico) + Vitamina C (500mg) no café da manhã para otimizar a conversão de carboidratos em ATP mitocondrial e síntese de colágeno.",
-        "Multivitamínico de Alta Biodisponibilidade (1 cápsula) junto a uma refeição sólida + 15 gotas de Própolis Verde (fortalecimento da barreira imunológica e vitalidade celular)."
-      ];
-      return pickRandom(pools);
-    }
-
-    // GERADOR DINÂMICO DE CARDÁPIO COMPLETO COM VARIEDADES E SUPLEMENTOS
     function getMealPlan(goal, day) {
-      const whey = getDynamicWhey(goal);
-      const creatine = getDynamicCreatine();
-      const vitamins = getDynamicVitamins(goal, day);
-
-      // Pools de opções de refeições por objetivo
       if (goal === 'fat_loss') {
-        const breakfasts = [
-          "2 a 3 ovos mexidos no azeite com tomate e orégano + 1 fatia de pão 100% integral + café ou chá sem açúcar.",
-          "Panqueca funcional de banana e aveia (1 ovo, 1 banana amassada, 2 colheres de aveia e canela em pó) + café preto puro.",
-          "Omelete de 2 ovos inteiros e 1 clara com espinafre e queijo cottage + 1 fatia de pão integral + café com gotas de canela.",
-          "2 ovos cozidos com azeite extravirgem e cúrcuma + 1 fatia de queijo branco magro + 1 tigela de mamão picado com chia."
-        ];
-        const lunches = [
-          "160g de filé de frango grelhado + 3 colheres de sopa de arroz integral + 1 concha de feijão + 50% do prato de salada verde com azeite extravirgem.",
-          "170g de filé de peixe branco (tilápia ou pescada) grelhado com limão e alecrim + 100g de batata-doce assada + brócolis ao vapor e salada de rúcula.",
-          "160g de patinho moído refogado com vagem e tomate + 3 colheres de arroz integral + 1 concha de feijão carioca + salada crua variada.",
-          "160g de filé de frango em cubos grelhado + 1 concha generosa de lentilha + salada colorida (alface, tomate cereja, palmito e pepino com azeite)."
-        ];
-        const snacks = [
-          `Lanche Proteico: ${whey}`,
-          "1 pote de iogurte natural desnatado + 1 colher de farelo de aveia + 1 fruta com casca (maçã ou morangos frescos) + 1 scoop de proteína.",
-          "2 fatias de pão 100% integral com pasta de atum em água e ricota light + 1 fatia de abacaxi com canela.",
-          "Crepioca leve (1 ovo + 1 colher de tapioca) recheada com 80g de frango desfiado + 1 xícara de café ou chá verde."
-        ];
-        const dinners = [
-          "150g de carne magra grelhada (patinho ou filé) com legumes salteados (abobrinha, cenoura e brócolis) + salada crua à vontade.",
-          "160g de peito de frango desfiado com legumes salteados (abobrinha, berinjela e cenoura) + salada verde colorida.",
-          "Sopa funcional cremosa de abóbora com frango desfiado, gengibre e couve-manteiga picada.",
-          "Salada proteica farta: 150g de tiras de frango grelhado, mix de folhas nobres, tomate cereja e molho leve de iogurte natural com mostarda."
-        ];
-        const suppers = [
-          "Chá de camomila ou melissa morno sem açúcar + 2 castanhas-do-pará (ricas em selênio para a tireoide).",
-          "Chá de erva-doce morno com 10 gotas de própolis verde e gotas de limão.",
-          "Chá de capim-limão ou maracujá relaxante + 2 nozes chilenas.",
-          "Chá de hortelã com erva-cidreira para digestão leve e sono restaurador."
-        ];
-
-        return `[CARDÁPIO COMPLETO • EMAGRECIMENTO & DEFINIÇÃO]
-• Café da Manhã: ${pickRandom(breakfasts)}
-• Almoço Completo: ${pickRandom(lunches)}
-• Lanche da Tarde: ${pickRandom(snacks)}
-• Jantar Leve: ${pickRandom(dinners)}
-• Ceia Reparadora: ${pickRandom(suppers)}
-• Suplementação Estratégica: ${creatine} • Whey Protein: ${whey} • Vitaminas: ${vitamins}
-• Variedades & Substituições: Frango (160g) ➔ Patinho moído (160g), Tilápia/Pescada (180g), Salmão (150g) ou 4 ovos | Arroz integral (3 col.) ➔ Batata-doce (100g), Mandioca (80g) ou Aveia (35g) | Vegetais e saladas verdes: livres à vontade.`;
-
+        const plans = {
+          mon: `[CARDÁPIO COMPLETO • EMAGRECIMENTO & DEFINIÇÃO]
+• Café da Manhã: 2 a 3 ovos mexidos no azeite com tomate e orégano + 1 fatia de pão 100% integral + café ou chá sem açúcar.
+• Almoço Completo: 160g de filé de peito de frango grelhado + 3 colheres de sopa de arroz integral + 1 concha de feijão + 50% do prato de salada verde com azeite extravirgem.
+• Lanche da Tarde: 1 pote de iogurte natural desnatado + 1 colher de farelo de aveia + 1 fruta com casca (maçã ou morangos).
+• Jantar Leve: Omelete de 2 ovos com espinafre e legumes grelhados (abobrinha e cenoura) + salada de folhas à vontade.
+• Ceia Reparadora: Chá de camomila ou melissa morno sem açúcar + 2 castanhas-do-pará.`,
+          tue: `[CARDÁPIO COMPLETO • EMAGRECIMENTO & DEFINIÇÃO]
+• Café da Manhã: Panqueca funcional de banana (1 ovo, 1 banana amassada e 2 colheres de aveia) com canela em pó + café preto.
+• Almoço Completo: 170g de filé de peixe (tilápia ou pescada) grelhado com limão + 100g de batata-doce assada + brócolis ao vapor e salada de rúcula.
+• Lanche da Tarde: 1 fatia de pão integral com creme de ricota light + 1 fatia de abacaxi com canela.
+• Jantar Leve: 160g de peito de frango desfiado com legumes salteados (abobrinha, berinjela e cenoura) + salada verde.
+• Ceia Reparadora: Chá de erva-doce morno com gotas de própolis.`,
+          wed: `[CARDÁPIO COMPLETO • EMAGRECIMENTO & DEFINIÇÃO]
+• Café da Manhã: 2 ovos cozidos com azeite e cúrcuma + 1 fatia de queijo branco magro + 1 tigela de mamão com sementes de chia.
+• Almoço Completo: 160g de carne moída magra (patinho) refogada com vagem + 3 colheres de arroz integral + 1 concha de feijão + salada crua.
+• Lanche da Tarde: Shake proteico rápido (200ml de água gelada + 1 scoop de proteína/whey ou 1 iogurte proteico) + 1 fruta fresca.
+• Jantar Leve: Sopa funcional cremosa de legumes com frango desfiado e couve-manteiga picada.
+• Ceia Reparadora: Chá de capim-limão ou camomila sem açúcar.`,
+          thu: `[CARDÁPIO COMPLETO • EMAGRECIMENTO & DEFINIÇÃO]
+• Café da Manhã: Ovos mexidos com ervas (2 ovos) + 1 torrada integral + 1/2 abacate pequeno com limão + café preto.
+• Almoço Completo: 160g de filé de frango em cubos + 1 concha de lentilha + salada colorida de alface, tomate cereja, palmito e azeite.
+• Lanche da Tarde: 1 pote de iogurte natural desnatado + sementes de abóbora ou chia + 1 kiwi ou pera.
+• Jantar Leve: 1 lata de atum sólido em água com salada grande de folhas, tomate, cebola roxa e 2 colheres de grão-de-bico.
+• Ceia Reparadora: Chá de maracujá ou melissa relaxante.`,
+          fri: `[CARDÁPIO COMPLETO • EMAGRECIMENTO & DEFINIÇÃO]
+• Café da Manhã: 2 ovos mexidos com queijo cottage + 1 fatia de pão 100% integral + 1 fatia de melão com aveia.
+• Almoço Completo: 160g de carne magra grelhada (patinho ou filé suíno magro) + 80g de mandioca cozida + salada verde farta e brócolis.
+• Lanche da Tarde: 1 sanduíche natural de pão integral com pasta de atum ou frango desfiado + 1 laranja com bagaço.
+• Jantar Leve: Salada proteica completa: peito de frango grelhado em tiras, mix de folhas, tomate cereja e molho leve de iogurte.
+• Ceia Reparadora: Chá de erva-cidreira morno para fechar a semana.`,
+          sat: `[CARDÁPIO COMPLETO • EMAGRECIMENTO & DEFINIÇÃO]
+• Café da Manhã: Omelete de 2 ovos com tomate e espinafre + 1 fatia de pão integral + café preto sem açúcar.
+• Almoço Completo: 160g de peito de frango ou peixe grelhado + 100g de batata-doce ou arroz integral + salada farta com azeite extravirgem.
+• Lanche da Tarde: 1 pote de iogurte natural desnatado + 1 colher de chia + 1 fruta fresca.
+• Jantar Leve: Carne magra grelhada (150g) com legumes assados (abobrinha, brócolis e cenoura) e folhas verdes.
+• Ceia Reparadora: Chá de camomila morno sem açúcar.`,
+          sun: `[CARDÁPIO COMPLETO • EMAGRECIMENTO & DEFINIÇÃO]
+• Café da Manhã: Panqueca de banana com 2 ovos e aveia + café ou chá verde sem açúcar.
+• Almoço Completo: 160g de proteína magra grelhada (frango, peixe ou patinho) + 3 colheres de arroz integral + feijão + salada colorida.
+• Lanche da Tarde: Shake proteico ou 2 ovos cozidos + 1 fruta com casca.
+• Jantar Leve: Caldo leve de legumes com frango desfiado ou salada proteica completa.
+• Ceia Reparadora: Chá de melissa morno para preparar o sono da nova semana.`
+        };
+        return plans[day] || plans.mon;
       } else if (goal === 'hypertrophy') {
-        const breakfasts = [
-          "Omelete de 3 a 4 ovos com queijo branco + 60g de aveia em flocos com 1 banana fatiada, 1 colher de mel e pasta de amendoim + café com leite.",
-          "Panqueca anabólica de aveia (3 ovos, 50g de aveia, 1 scoop de Whey Protein, canela e 1 colher de mel) + 1 copo de suco de uva integral.",
-          "4 ovos mexidos (3 inteiros + 1 clara) + 2 fatias de torrada integral com requeijão light + 1 banana com aveia e canela + café.",
-          "3 ovos mexidos com queijo minas frescal + 2 fatias de pão integral + 1 tigela de mamão com 40g de aveia e pasta de amendoim."
-        ];
-        const lunches = [
-          "200g de carne moída magra (patinho) ou filé de frango + 200g de arroz (branco ou integral) + 1 concha generosa de feijão + salada crua com azeite de oliva.",
-          "200g de filé de peixe grelhado (tilápia ou salmão) ou frango + 220g de arroz com feijão + salada farta de folhas verdes, cenoura e beterraba ralada.",
-          "200g de peito de frango grelhado ao molho de tomate natural + 200g de macarrão integral ou arroz + concha de feijão + salada verde farta.",
-          "200g de patinho moído refogado com lentilha e tomate + 200g de arroz integral + salada de folhas, tomate cereja e palmito com azeite extravirgem."
-        ];
-        const snacks = [
-          `Lanche / Pré-Treino: ${whey} + 1 banana média ou 2 fatias de pão integral com 2 ovos mexidos.`,
-          "Sanduíche natural de pão integral com 120g de frango desfiado e creme de ricota + Vitamina de 1 banana, aveia e 1 scoop de Whey.",
-          "Crepioca reforçada (2 ovos + 2 colheres de tapioca + 1 colher de Whey) recheada com frango desfiado + copo de suco de laranja.",
-          "2 fatias de pão integral com pasta de amendoim integral e rodelas de banana + shake de Whey batido com água gelada."
-        ];
-        const dinners = [
-          "190g de filé de peito de frango grelhado + 180g de batata-doce ou mandioca cozida + legumes ao vapor com azeite extravirgem.",
-          "190g de carne bovina magra grelhada + 200g de batata inglesa assada com alecrim e azeite + legumes salteados.",
-          "190g de filé de tilápia grelhada + 180g de purê de batata ou mandioquinha + brócolis e cenoura no vapor regados com azeite.",
-          "190g de peito de frango assado em cubos + 180g de mandioca cozida + salada colorida farta com azeite extravirgem."
-        ];
-        const suppers = [
-          "1 tigela de iogurte natural desnatado com 1 scoop de Whey Protein ou Caseína + 3 ovos cozidos com azeite e orégano.",
-          "Vitamina cremosa de abacate (1/3 de abacate) com leite desnatado e 1 scoop de Whey Protein para fornecimento noturno de aminoácidos.",
-          "1 pote de iogurte natural com 1 scoop de proteína + punhado generoso de castanhas e nozes.",
-          "3 a 4 ovos cozidos com azeite de oliva e orégano + chá de camomila morno."
-        ];
-
-        return `[CARDÁPIO COMPLETO • HIPERTROFIA & FORÇA MÁXIMA]
-• Café da Manhã: ${pickRandom(breakfasts)}
-• Almoço Hipertrófico: ${pickRandom(lunches)}
-• Lanche / Pré-Treino: ${pickRandom(snacks)}
-• Jantar Construtor: ${pickRandom(dinners)}
-• Ceia Anabólica: ${pickRandom(suppers)}
-• Suplementação Estratégica: ${creatine} • Whey Protein: ${whey} • Vitaminas: ${vitamins}
-• Variedades & Substituições: Frango/Patinho (200g) ➔ Tilápia, Salmão grelhado, Lombo suíno magro ou Alcatra magra | Arroz (200g) ➔ Batata-doce (220g), Mandioca (180g), Macarrão integral (180g) ou Aveia (60g).`;
-
+        const plans = {
+          mon: `[CARDÁPIO COMPLETO • HIPERTROFIA & FORÇA MÁXIMA]
+• Café da Manhã: Omelete de 3 a 4 ovos com queijo branco + 60g de aveia em flocos com 1 banana e 1 colher de pasta de amendoim + café com leite.
+• Almoço Hipertrófico: 200g de carne moída magra (patinho) ou frango + 200g de arroz branco/integral + 1 concha generosa de feijão + salada crua com azeite de oliva.
+• Lanche / Pré-Treino: Sanduíche natural com pão integral, atum ou frango com ricota + 1 fruta ou vitamina de banana com aveia e whey protein.
+• Jantar Construtor: 190g de filé de peito de frango grelhado + 180g de batata-doce ou mandioca cozida + legumes ao vapor com azeite extravirgem.
+• Ceia Anabólica: 1 iogurte natural com 1 scoop de proteína/whey ou 3 ovos cozidos com azeite para síntese proteica noturna.`,
+          tue: `[CARDÁPIO COMPLETO • HIPERTROFIA & FORÇA MÁXIMA]
+• Café da Manhã: Panqueca anabólica de aveia (3 ovos, 50g de aveia, 1 colher de mel e canela) + copo de suco integral de uva.
+• Almoço Hipertrófico: 200g de filé de peixe grelhado ou frango + 220g de arroz com feijão + salada farta de folhas verdes, cenoura e beterraba ralada.
+• Lanche / Pré-Treino: 2 fatias de pão integral com 3 ovos mexidos + 1 tigela de açaí puro com banana e granola sem açúcar.
+• Jantar Construtor: 190g de carne bovina magra grelhada + 200g de batata inglesa assada com alecrim + legumes salteados no azeite.
+• Ceia Anabólica: Vitamina de abacate com leite desnatado e proteína para fornecimento prolongado de aminoácidos.`,
+          wed: `[CARDÁPIO COMPLETO • HIPERTROFIA & FORÇA MÁXIMA]
+• Café da Manhã: 3 ovos mexidos com queijo minas frescal + 2 fatias de pão integral + 1 tigela de mamão com aveia e pasta de amendoim.
+• Almoço Hipertrófico: 200g de peito de frango grelhado ao molho de tomate natural + 200g de macarrão integral ou arroz + concha de feijão + salada verde.
+• Lanche / Pré-Treino: Shake hipertrófico: 300ml de leite + 1 scoop de whey + 40g de aveia + 1 maçã batida.
+• Jantar Construtor: 190g de filé de tilápia grelhada + 180g de purê de mandioquinha ou batata + brócolis e cenoura no vapor com azeite.
+• Ceia Anabólica: 1 pote de iogurte natural com punhado de castanhas e nozes.`,
+          thu: `[CARDÁPIO COMPLETO • HIPERTROFIA & FORÇA MÁXIMA]
+• Café da Manhã: 4 ovos mexidos (3 inteiros + 1 clara) + 2 fatias de torrada integral com requeijão light + 1 banana com canela + café.
+• Almoço Hipertrófico: 200g de patinho moído com lentilha + 200g de arroz integral + salada de folhas, tomate e palmito com azeite extravirgem.
+• Lanche / Pré-Treino: Crepioca com 2 ovos e 2 colheres de tapioca recheada com frango desfiado + 1 copo de suco de laranja natural.
+• Jantar Construtor: 190g de peito de frango assado em cubos + 180g de mandioca cozida + salada colorida com azeite.
+• Ceia Anabólica: 1 tigela de iogurte com caseína ou whey protein e sementes de chia.`,
+          fri: `[CARDÁPIO COMPLETO • HIPERTROFIA & FORÇA MÁXIMA]
+• Café da Manhã: Omelete reforçado com 3 ovos, frango desfiado e queijo branco + 2 fatias de pão integral + salada de frutas com aveia.
+• Almoço Hipertrófico: 200g de carne vermelha magra grelhada + 200g de arroz branco + concha de feijão carioca + legumes no vapor.
+• Lanche / Pré-Treino: 2 fatias de pão integral com pasta de amendoim e rodelas de banana + shake de proteína com água gelada.
+• Jantar Construtor: 190g de filé de salmão ou frango grelhado + 180g de batata-doce + salada farta de folhas verdes.
+• Ceia Anabólica: 3 ovos cozidos com azeite de oliva e orégano + chá de camomila.`,
+          sat: `[CARDÁPIO COMPLETO • HIPERTROFIA & FORÇA MÁXIMA]
+• Café da Manhã: 3 a 4 ovos mexidos com queijo branco + 2 fatias de pão integral + 1 vitamina de banana com aveia.
+• Almoço Hipertrófico: 200g de carne magra ou frango grelhado + 220g de arroz com feijão + salada crua com azeite extravirgem.
+• Lanche / Pré-Treino: Crepioca com frango desfiado + 1 fruta energética (banana ou manga).
+• Jantar Construtor: 190g de peixe ou frango grelhado + 200g de batata inglesa ou mandioca + legumes ao vapor.
+• Ceia Anabólica: 1 pote de iogurte natural com 1 scoop de proteína/whey e aveia.`,
+          sun: `[CARDÁPIO COMPLETO • HIPERTROFIA & FORÇA MÁXIMA]
+• Café da Manhã: Panqueca anabólica (3 ovos, 50g de aveia e mel) + café com leite.
+• Almoço Hipertrófico: 200g de proteína magra (alcatra limpa, patinho ou frango) + 200g de arroz ou macarrão integral + legumes e salada.
+• Lanche da Tarde: Sanduíche natural reforçado no pão integral + 1 copo de suco integral.
+• Jantar Construtor: 180g de peito de frango grelhado + 180g de batata-doce + salada verde com azeite.
+• Ceia Anabólica: 3 ovos cozidos ou iogurte proteico com castanhas para recuperação noturna.`
+        };
+        return plans[day] || plans.mon;
       } else {
         // recomposition
-        const breakfasts = [
-          "3 ovos mexidos (2 inteiros + 1 clara) com queijo cottage + 1 fatia de pão 100% integral + 1 fatia de mamão com chia.",
-          "Panqueca de aveia proteica (2 ovos, 30g de aveia, 1 banana amassada e canela) + 1 xícara de café preto sem açúcar.",
-          "2 a 3 ovos cozidos com azeite e cúrcuma + 1 fatia de queijo minas + 1 tigela de morangos com farelo de aveia + café.",
-          "Ovos mexidos com orégano (2 ovos inteiros) + 1 torrada integral + 1/4 de abacate fatiado com azeite + café preto."
-        ];
-        const lunches = [
-          "170g de filé de peito de frango grelhado + 130g de arroz integral + 1 concha de feijão + 50% do prato de salada verde com azeite extravirgem.",
-          "170g de filé de peixe (tilápia ou pescada) com limão e alecrim + 120g de batata-doce assada + brócolis ao vapor e salada de folhas.",
-          "170g de patinho moído grelhado + 120g de arroz integral + concha de feijão preto + salada crua variada com azeite.",
-          "170g de peito de frango assado + 1 concha de lentilha ou grão-de-bico + salada colorida com azeite extravirgem."
-        ];
-        const snacks = [
-          `Lanche da Tarde: ${whey}`,
-          "1 pote de iogurte natural com 1 scoop de Whey Protein (30g) + 1 maçã fatiada com canela.",
-          "Shake proteico rápido (1 scoop de Whey + 200ml de água + 1 colher de sementes de chia) + 1 kiwi ou pera.",
-          "Sanduíche natural com pão integral, peito de frango desfiado e ricota + 1 fruta cítrica fresca."
-        ];
-        const dinners = [
-          "160g de carne moída magra (patinho) com legumes grelhados variados (abobrinha, cenoura, tomate) e salada de folhas escuras.",
-          "160g de peito de frango grelhado em tiras com abobrinha salteada e salada verde com azeite extravirgem.",
-          "Omelete de 3 claras e 1 gema recheado com espinafre e legumes grelhados + salada farta de folhas verdes.",
-          "160g de atum sólido em água com mix de folhas, tomate cereja, pepino e 2 colheres de quinoa cozida."
-        ];
-        const suppers = [
-          "Chá de camomila morno + 2 nozes ou cubos de queijo branco magro.",
-          "Chá de erva-doce ou melissa sem açúcar + 1 colher de sementes de abóbora.",
-          "Chá de camomila com gotas de própolis e limão.",
-          "Chá de erva-cidreira morno para regeneração no fim de semana."
-        ];
-
-        return `[CARDÁPIO COMPLETO • RECOMPOSIÇÃO CORPORAL]
-• Café da Manhã: ${pickRandom(breakfasts)}
-• Almoço Equilibrado: ${pickRandom(lunches)}
-• Lanche da Tarde: ${pickRandom(snacks)}
-• Jantar Estratégico: ${pickRandom(dinners)}
-• Ceia Relaxante: ${pickRandom(suppers)}
-• Suplementação Estratégica: ${creatine} • Whey Protein: ${whey} • Vitaminas: ${vitamins}
-• Variedades & Substituições: Frango (170g) ➔ Patinho moído (170g), Tilápia (180g) ou 4 ovos | Arroz integral (130g) ➔ Batata-doce (120g), Mandioca (100g) ou Quinoa (120g) | Saladas: livres.`;
+        const plans = {
+          mon: `[CARDÁPIO COMPLETO • RECOMPOSIÇÃO CORPORAL]
+• Café da Manhã: 3 ovos mexidos (2 inteiros + 1 clara) com queijo cottage + 1 fatia de pão 100% integral + 1 fatia de mamão com sementes de chia.
+• Almoço Equilibrado: 170g de filé de peito de frango grelhado + 130g de arroz integral + 1 concha de feijão + 50% do prato de salada verde com azeite.
+• Lanche da Tarde: 1 iogurte proteico ou shake com fruta e 1 colher de farelo de aveia + punhado pequeno de castanhas (15g).
+• Jantar Estratégico: 160g de carne moída magra (patinho) com legumes grelhados variados (abobrinha, cenoura, tomate) e salada de folhas.
+• Ceia Relaxante: Chá de camomila morno + 2 nozes ou cubos de queijo branco magro.`,
+          tue: `[CARDÁPIO COMPLETO • RECOMPOSIÇÃO CORPORAL]
+• Café da Manhã: Panqueca de aveia proteica (2 ovos, 30g de aveia e canela) + 1 xícara de café preto sem açúcar.
+• Almoço Equilibrado: 170g de filé de peixe com limão e alecrim + 120g de batata-doce assada + brócolis ao vapor e salada de folhas.
+• Lanche da Tarde: 1 fatia de pão integral com atum e ricota light + 1 maçã pequena.
+• Jantar Estratégico: 160g de frango grelhado em tiras com abobrinha salteada e salada verde com azeite extravirgem.
+• Ceia Relaxante: Chá de erva-doce ou melissa sem açúcar.`,
+          wed: `[CARDÁPIO COMPLETO • RECOMPOSIÇÃO CORPORAL]
+• Café da Manhã: 2 ovos cozidos + 1 fatia de queijo minas + 1 tigela de morangos com farelo de aveia + café.
+• Almoço Equilibrado: 170g de patinho grelhado + 120g de arroz integral + concha de feijão preto + salada crua variada.
+• Lanche da Tarde: 1 pote de iogurte natural com 1 colher de sementes de chia e 1 fruta fresca.
+• Jantar Estratégico: Omelete de 3 claras e 1 gema recheado com legumes e salada de folhas verdes.
+• Ceia Relaxante: Chá de camomila com gotas de própolis.`,
+          thu: `[CARDÁPIO COMPLETO • RECOMPOSIÇÃO CORPORAL]
+• Café da Manhã: Ovos mexidos com orégano (2 ovos) + 1 torrada integral + 1/4 de abacate fatiado + café preto.
+• Almoço Equilibrado: 170g de peito de frango assado + 1 concha de lentilha + salada colorida com azeite extravirgem.
+• Lanche da Tarde: Shake proteico com água e 1 fruta cítrica (laranja ou kiwi).
+• Jantar Estratégico: 160g de atum sólido com mix de folhas, tomate, pepino e 2 colheres de quinoa cozida.
+• Ceia Relaxante: Chá de melissa ou capim-limão.`,
+          fri: `[CARDÁPIO COMPLETO • RECOMPOSIÇÃO CORPORAL]
+• Café da Manhã: 2 ovos mexidos com queijo cottage + 1 fatia de pão integral + 1 fatia de melão com aveia.
+• Almoço Equilibrado: 170g de carne magra grelhada + 100g de mandioca cozida + salada farta de folhas verdes e brócolis.
+• Lanche da Tarde: Sanduíche natural com pão integral e frango desfiado + 1 fruta fresca.
+• Jantar Estratégico: Salada proteica completa com tiras de frango grelhado, mix de folhas e molho leve de iogurte.
+• Ceia Relaxante: Chá de erva-cidreira morno para fechar a semana.`,
+          sat: `[CARDÁPIO COMPLETO • RECOMPOSIÇÃO CORPORAL]
+• Café da Manhã: 3 ovos mexidos com tomate + 1 fatia de pão integral + 1 fruta fresca + café preto.
+• Almoço Equilibrado: 170g de frango ou carne magra grelhada + 120g de arroz integral + feijão + salada verde com azeite.
+• Lanche da Tarde: Iogurte proteico com 1 colher de aveia e morangos ou maçã.
+• Jantar Estratégico: 160g de filé de peixe grelhado + legumes assados + salada de folhas.
+• Ceia Relaxante: Chá de camomila morno + 2 castanhas-do-pará.`,
+          sun: `[CARDÁPIO COMPLETO • RECOMPOSIÇÃO CORPORAL]
+• Café da Manhã: Omelete de 2 ovos com queijo branco + 1 fatia de mamão com chia + café.
+• Almoço Equilibrado: 170g de proteína magra grelhada + 120g de batata-doce ou arroz integral + salada colorida.
+• Lanche da Tarde: Shake proteico com água ou sanduíche natural leve + 1 fruta.
+• Jantar Estratégico: Salada proteica completa com frango desfiado, legumes grelhados e azeite extravirgem.
+• Ceia Relaxante: Chá de melissa morno para fechar o ciclo semanal.`
+        };
+        return plans[day] || plans.mon;
       }
     }
 
-    // ==========================================================================
-    // GERADOR DE CARDIO DETALHADO POR MODALIDADE (ESTEIRA, ESCADA, BIKE, CIRCUITO)
-    // ==========================================================================
-    function generateDetailedCardio(cardioLevel, dayKey) {
-      const modalities = [
-        {
-          type: "ESTEIRA INCLINADA (PROTEÇÃO ARTICULAR & LIPÓLISE)",
-          low: `• Equipamento: Esteira com Inclinação Constante
-• Protocolo: 20 min de caminhada rápida sem impacto (inclinação 4% a 6%, velocidade 5.0 a 5.5 km/h).
-• Técnica: Não segure nos apoios para recrutar o abdômen e glúteos. Mantenha ritmo conversacional (FC ~120 BPM).`,
-          mid: `• Equipamento: Esteira com Inclinação Moderada
-• Protocolo: 25 a 30 min com inclinação 6% a 8% e velocidade 5.6 a 6.3 km/h.
-• Técnica: Postura ereta, passadas firmes com apoio total do pé. Queima calórica elevada com zero impacto sobre joelhos e tornozelos (FC 125-140 BPM).`,
-          high: `• Equipamento: Esteira em Protocolo HIIT Intervalado
-• Protocolo: 25 min total. 5 min aquecimento + 10 tiros de (45s forte a 9.5-11.5 km/h com inclinação 2% x 1 min caminhada a 5.0 km/h) + 3 min desaceleração.
-• Técnica: Manter o core travado e respirar pelo nariz/boca de forma ritmada.`
-        },
-        {
-          type: "SIMULADOR DE ESCADA (STAIRMASTER • ATIVAÇÃO MÁXIMA DE GLÚTEOS)",
-          low: `• Equipamento: Simulador de Escada (StairMaster)
-• Protocolo: 12 a 15 min contínuos em nível leve (nível 4 a 5, aprox. 40 a 50 degraus/min).
-• Técnica: Apoie o pé por inteiro no degrau (evite subir apenas na ponta dos pés). Tronco ereto sem debruçar sobre o painel.`,
-          mid: `• Equipamento: Simulador de Escada (StairMaster)
-• Protocolo: 20 min em nível moderado (nível 6 a 7, aprox. 55 a 65 degraus/min).
-• Técnica: Excelente recrutamento de posteriores e glúteos com alto gasto calórico (até 280 kcal em 20 min) e compressão articular reduzida.`,
-          high: `• Equipamento: Simulador de Escada em Pirâmide HIIT
-• Protocolo: 20 min. Alternar: 2 min nível 6 (moderado) x 1 min nível 9-10 (forte) por 6 ciclos completos + 2 min resfriamento.
-• Técnica: Queima metabólica intensa com estímulo potente nas fibras musculares inferiores.`
-        },
-        {
-          type: "BICICLETA ERGOMÉTRICA / SPINNING (ZONA 2 AERÓBICA)",
-          low: `• Equipamento: Bicicleta Ergométrica (Horizontal ou Vertical)
-• Protocolo: 20 a 25 min em carga leve/moderada (nível 4-5) com cadência constante de 75 a 85 RPM.
-• Técnica: Ajuste o selim na altura do quadril para proteger os meniscos. Respiração fluida e controlada.`,
-          mid: `• Equipamento: Bicicleta Spinning / Ergométrica
-• Protocolo: 30 min com carga moderada (nível 6 a 8) e cadência de 80 a 90 RPM.
-• Técnica: Alterne 4 minutos pedalando sentado com 1 minuto pedalando em pé para aumentar a resistência cardiovascular e oxigenação tecidual.`,
-          high: `• Equipamento: Bike Spinning em Protocolo Tabata
-• Protocolo: 22 min total. 5 min giro leve + 8 ciclos de (20s sprint em potência máxima com carga alta x 10s giro suave) + 10 min giro contínuo moderado.
-• Técnica: Disparo maciço de EPOC (queima de gordura pós-exercício).`
-        },
-        {
-          type: "CIRCUITO FUNCIONAL METABÓLICO (RESISTÊNCIA TOTAL)",
-          low: `• Equipamento: Circuito com Peso Corporal no Colchonete
-• Protocolo: 15 min (3 voltas completas): 30s Polichinelos + 30s Agachamento livre cadenciado + 30s Elevação de joelhos + 1 min descanso entre voltas.
-• Técnica: Ritmo confortável com foco na respiração e mobilidade.`,
-          mid: `• Equipamento: Circuito Metabólico de Queima Acelerada
-• Protocolo: 20 min (4 voltas): 40s Corda naval ou Polichinelo frontal + 40s Agachamento sumô livre + 30s Mountain Climber (escalador) + 45s descanso.
-• Técnica: Manter o abdômen contraído em todas as estações.`,
-          high: `• Equipamento: Circuito de Alta Intensidade Cross-Metabólico
-• Protocolo: 20 min (5 voltas dinâmicas): 40s Burpees adaptados + 40s Corrida estacionária alta + 40s Prancha abdominal dinâmica + 40s Polichinelo com salto + 40s descanso ativo.
-• Técnica: Condicionamento metabólico de elite.`
-        }
-      ];
-
-      // Escolhe a modalidade do dia de forma alternada e variada
-      let mod = modalities[0];
-      if (dayKey === 'mon') mod = modalities[0]; // Esteira
-      else if (dayKey === 'tue') mod = modalities[1]; // Escada
-      else if (dayKey === 'wed') mod = modalities[2]; // Bike
-      else if (dayKey === 'thu') mod = modalities[3]; // Circuito
-      else if (dayKey === 'fri') mod = modalities[0]; // Esteira HIIT
-      else mod = pickRandom(modalities);
-
-      const intensityKey = (cardioLevel === 'cardio_low') ? 'low' : ((cardioLevel === 'cardio_mid') ? 'mid' : 'high');
-      return `[CARDIO DETALHADO • ${mod.type}]
-${mod[intensityKey]}`;
-    }
-
-    
     // GERAÇÃO DE ROTINA DE DESCANSO E HIDRATAÇÃO
     function getRestPlan(day, waterLiters) {
       const plans = {
@@ -6094,517 +6030,271 @@ ${mod[intensityKey]}`;
 • Meta Hídrica Diária: Cumprir os ${waterLiters}L de água mesmo na sexta-feira. Manter uma garrafa por perto em compromissos sociais.
 • Higiene do Sono no Fim de Semana: Evitar dormir excessivamente tarde para não desregular o ritmo circadiano e a produção hormonal.
 • Planejamento de Recuperação: Programar um final de semana com sono restaurador e descanso ativo para iniciar o próximo ciclo com rendimento máximo.
-• Descompressão Mental: Praticar atividades prazerosas e repouso ativo ao ar livre.`
+• Descompressão Mental: Praticar atividades prazerosas e manter o foco na constância.`,
+        sat: `[RECUPERAÇÃO BIOLÓGICA & HIDRATAÇÃO • SÁBADO]
+• Meta Hídrica Diária: Cumprir rigorosamente ${waterLiters}L de água ao longo do sábado, mesmo fora da rotina de trabalho.
+• Recuperação Muscular: Alongamento global de 10 minutos após o treino complementar ou cardio de sábado.
+• Sono Consistente: Evitar dormir muito fora do horário habitual para preservar a qualidade hormonal e a disposição.
+• Equilíbrio Social: Se houver refeições sociais, priorizar proteína e manter a garrafa de água sempre por perto.`,
+        sun: `[RECUPERAÇÃO BIOLÓGICA & HIDRATAÇÃO • DOMINGO RESTAURADOR]
+• Meta Hídrica Diária: Bater ${waterLiters}L de água para chegar hidratado e leve na segunda-feira.
+• Descanso do Sistema Nervoso Central: Priorizar mobilidade leve, caminhada ao ar livre e relaxamento articular.
+• Preparação da Semana: Organizar roupas de treino, garrafa de água e refeições base para a próxima semana.
+• Sono Anabólico: Dormir cedo (7h30 a 8h) em ambiente escuro para iniciar a segunda-feira com energia máxima.`
       };
       return plans[day] || plans.mon;
     }
 
-    function getExactWeight(exerciseName, userSex, userLevel, userWeight = 80) {
-      const isMale = (userSex === 'male');
-      const w = Number(userWeight) || (isMale ? 80 : 65);
-      const name = String(exerciseName || '').toLowerCase();
-
-      // 1. Leg Press
-      if (name.includes('leg press')) {
-        if (userLevel === 'beginner_zero') {
-          const tot = isMale ? 60 : 40;
-          return `${tot} kg total (${tot / 2} kg de cada lado na máquina)`;
-        } else if (userLevel === 'intermediate') {
-          const tot = isMale ? 140 : 90;
-          return `${tot} kg total (${tot / 2} kg de cada lado)`;
+    function assembleSpecificWorkouts(level, goal, cardio, limitKnee, limitSpine, limitShoulder, waterLiters) {
+        let cardioDesc = "";
+        if (cardio === 'cardio_low') {
+            cardioDesc = "Cardio Leve: 15 min de caminhada contínua em esteira (ritmo conversacional 4.8 a 5.3 km/h).";
+        } else if (cardio === 'cardio_mid') {
+            cardioDesc = "Cardio Moderado: 20-25 min de esteira inclinada (inclinação 3-5%) ou bicicleta ritmada.";
         } else {
-          const tot = isMale ? 240 : 150;
-          return `${tot} kg total (${tot / 2} kg de cada lado)`;
+            cardioDesc = "Cardio de Alta Intensidade: 25-30 min com 10 tiros intervalados (1 min forte x 1 min trote) ou corrida contínua.";
         }
-      }
 
-      // 2. Goblet Squat (halter único)
-      if (name.includes('goblet')) {
-        let kg = 8;
-        if (userLevel === 'beginner_zero') kg = isMale ? 8 : 6;
-        else if (userLevel === 'intermediate') kg = isMale ? 18 : 12;
-        else kg = isMale ? 28 : 18;
-        return `Halter único de ${kg} kg (seguro firme junto ao peito)`;
-      }
+        // Variáveis de exercícios com proteção articular
+        // Variáveis de exercícios com proteção articular (sem duplicação de séries/repetições)
+        const squatBase = limitKnee ? "Leg Press 45° com pés altos e amplitude controlada" : (limitSpine ? "Leg Press horizontal apoiado" : "Agachamento guiado no Smith ou Goblet Squat com halter");
+        const shoulderBase = limitShoulder ? "Elevação lateral leve com cotovelos flexionados [sem desenvolver acima da cabeça]" : "Desenvolvimento de ombros com halteres";
+        const backBase = limitSpine ? "Remada articulada na máquina com peito apoiado no banco" : "Remada baixa na polia ou Remada cavalinho";
+        const legCurlBase = limitKnee ? "Cadeira flexora sentado com carga leve/moderada" : "Mesa flexora deitada";
 
-      // 3. Agachamento Smith / Barra Olímpica
-      if (name.includes('agachamento') || name.includes('smith')) {
-        if (userLevel === 'beginner_zero') {
-          const side = isMale ? 5 : 2.5;
-          return `Barra com ${side} kg de cada lado (${side * 2 + 10} kg total)`;
-        } else if (userLevel === 'intermediate') {
-          const side = isMale ? 20 : 12.5;
-          return `Barra com ${side} kg de cada lado (${side * 2 + 10} kg total)`;
+        if (level === 'beginner_zero') {
+            document.getElementById('title_mon').innerText = "Foco: Adaptação Neural & Membros Inferiores Básicos";
+            document.getElementById('train_mon').value = `[INICIANTE DO ZERO • SEMANA DE ADAPTAÇÃO]
+- Aquecimento: 5 min caminhada leve
+- ${squatBase} (3x10-12)
+- Cadeira Extensora (2x15 - carga bem leve para irrigação)
+- Panturrilha no banco/chão (3x15)
+- Abdominal infra ou prancha no chão (3 séries de 15 a 20s)
+- Intervalo: 1min30 entre séries. Não chegue à falha muscular!
+- ${cardioDesc}`;
+            document.getElementById('food_mon').value = "Alimentação simples de adaptação: Café com 2 ovos mexidos + 1 fruta com aveia. Almoço com metade do prato de vegetais, 1 concha de arroz, 1 concha de feijão e filé de frango grelhado (120g). Jantar leve (omelete ou sopa com carne magra).";
+            document.getElementById('rest_mon').value = `Meta de hidratação: Beber ${waterLiters}L de água distribuídos ao longo do dia. Dormir 7h a 8h.`;
+
+            document.getElementById('title_tue').innerText = "Foco: Membros Superiores em Aparelhos Guiados";
+            document.getElementById('train_tue').value = `[INICIANTE DO ZERO • SUPERIORES]
+- Puxada frontal aberta na polia (3x12 - foco na postura)
+- Supino reto na máquina articulada (3x12 - costas bem apoiadas)
+- ${backBase} (3x12)
+- Tríceps na polia com barra reta (2x15)
+- Rosca bíceps com halteres leves (2x12)
+- ${cardioDesc}`;
+            document.getElementById('food_tue').value = "Manter refeições nos mesmos horários. Lanche da tarde: 1 iogurte natural com frutas ou punhado pequeno de castanhas. Evitar líquidos açucarados e frituras.";
+            document.getElementById('rest_tue').value = "Alongamento leve para trapézio e peitoral. Evitar telas 30 minutos antes de deitar.";
+
+            document.getElementById('title_wed').innerText = "Foco: Descanso Ativo & Regeneração Muscular";
+            document.getElementById('train_wed').value = `[DESCANSO ATIVO PARA INICIANTE]
+- Nenhum treino de pesos hoje!
+- Apenas 25 a 30 minutos de caminhada ao ar livre ou mobilidade suave em casa.
+- Deixar a musculatura recuperar o estresse inicial sem dores tardias excessivas.`;
+            document.getElementById('food_wed').value = "Dia sem musculação pesada: manter a ingestão hídrica e os vegetais. Evitar 'recompensas' com ultraprocessados. Manter o prato colorido e proteínas magras.";
+            document.getElementById('rest_wed').value = "Recuperação total do sistema nervoso central. Banho relaxante e sono contínuo.";
+
+            document.getElementById('title_thu').innerText = "Foco: Posterior de Coxa, Glúteos & Estabilidade";
+            document.getElementById('train_thu').value = `[INICIANTE DO ZERO • POSTERIOR & GLÚTEOS]
+- Elevação pélvica no colchonete sem peso (3x15)
+- ${legCurlBase} (3x12-15)
+- Cadeira Abdutora (3x15)
+- Prancha isométrica (3x20s com joelhos apoiados se necessário)
+- ${cardioDesc}`;
+            document.getElementById('food_thu').value = "Carboidrato complexo 1h antes do treino (1 banana com farelo de aveia) para ter energia estável. Pós-treino: refeição sólida com proteína e salada.";
+            document.getElementById('rest_thu').value = "Elevar as pernas por 10 minutos após o banho para diminuir a sensação de pernas pesadas.";
+
+            document.getElementById('title_fri').innerText = "Foco: Treino Corporal Completo & Fechamento";
+            document.getElementById('train_fri').value = `[INICIANTE DO ZERO • FECHAMENTO]
+- Circuito leve de fechamento: Puxada alta (2x12) + Supino máquina (2x12) + Leg Press leve (2x12)
+- ${shoulderBase} (3x12)
+- Abdominal supra no colchonete (3x15)
+- 20 minutos de caminhada prazerosa
+- Comemorar a primeira semana concluída!`;
+            document.getElementById('food_fri').value = "Sexta sem fugir do plano: manter água ao lado durante jantares sociais e optar por fontes magras e salada fresca.";
+            document.getElementById('rest_fri').value = "Avaliar a sensação corporal dos primeiros 5 dias e manter a constância no fim de semana.";
+
+            document.getElementById('title_sat').innerText = "Foco: Mobilidade, Core & Cardio Leve";
+            document.getElementById('train_sat').value = `[INICIANTE DO ZERO • SÁBADO ATIVO]
+- 10 minutos de mobilidade articular global (ombros, quadril e tornozelos)
+- Prancha isométrica adaptada (3x20-30s)
+- Ponte de glúteo no colchonete (3x15)
+- Abdominal supra controlado (3x12)
+- 25 a 30 minutos de caminhada leve ou bicicleta ergométrica em ritmo confortável`;
+            document.getElementById('food_sat').value = "Manter refeições simples, ricas em proteínas magras, frutas e boa hidratação ao longo do sábado.";
+            document.getElementById('rest_sat').value = `Bater ${waterLiters}L de água e garantir sono reparador de 7h30 a 8h.`;
+
+            document.getElementById('title_sun').innerText = "Foco: Descanso Ativo & Caminhada Restauradora";
+            document.getElementById('train_sun').value = `[INICIANTE DO ZERO • DOMINGO RESTAURADOR]
+- 20 a 30 minutos de caminhada leve ao ar livre (ritmo de conversa)
+- 10 minutos de alongamento suave para pernas, costas e pescoço
+- Opção: descanso total caso sinta cansaço muscular acumulado`;
+            document.getElementById('food_sun').value = "Evitar exageros no domingo à noite; priorizar jantar leve e proteínas magras.";
+            document.getElementById('rest_sun').value = "Dormir cedo e preparar o corpo para a nova semana de treinos.";
+
+        } else if (level === 'intermediate') {
+            document.getElementById('title_mon').innerText = "Foco: Treino A - Inferiores Completo & Core";
+            document.getElementById('train_mon').value = `[INTERMEDIÁRIO • INFERIORES FORÇA]
+- Aquecimento específico no primeiro exercício com 40% da carga
+- ${squatBase} (4x10-12, progredindo carga)
+- Cadeira Extensora (3x12 com 2 segundos de isometria no topo)
+- ${legCurlBase} (4x10)
+- Panturrilha em pé (4x15)
+- Prancha abdominal (3x45s) + Abdominal infra no banco (3x15)
+- ${cardioDesc}`;
+            document.getElementById('food_mon').value = "Nutrição alinhada ao objetivo: 1.8g de proteína por kg corporal. Almoço com carboidrato limpo (arroz integral ou batata), feijão e filé de peito de frango (150-180g). Lanche pré-treino nutritivo.";
+            document.getElementById('rest_mon').value = `Ingerir rigorosamente ${waterLiters}L de água. Dormir 7h30 a 8h para síntese e reparo.`;
+
+            document.getElementById('title_tue').innerText = "Foco: Treino B - Superiores (Peito, Costas & Ombros)";
+            document.getElementById('train_tue').value = `[INTERMEDIÁRIO • SUPERIORES]
+- Supino inclinado com halteres (4x10-12)
+- Puxada alta na polia com pegada supinada (4x10)
+- ${backBase} (3x10)
+- ${shoulderBase} (4x12)
+- Tríceps testa ou corda (3x12) em biset com Rosca direta com barra (3x12)
+- ${cardioDesc}`;
+            document.getElementById('food_tue').value = "Reforço proteico em todas as refeições. Pós-treino: Whey com fruta ou 3 ovos cozidos com torrada integral.";
+            document.getElementById('rest_tue').value = "Mobilidade de escápulas e peitoral após a sessão.";
+
+            document.getElementById('title_wed').innerText = "Foco: Descanso Ativo & Estabilização Metabólica";
+            document.getElementById('train_wed').value = `[RECUPERAÇÃO ATIVA METABÓLICA]
+- 30 a 40 minutos de caminhada rápida ao ar livre ou esteira com inclinação moderada.
+- Sessão de 15 minutos de alongamento global e mobilidade de quadris/tornozelos.
+- Foco em esvaziar a fadiga neuromuscular acumulada.`;
+            document.getElementById('food_wed').value = "Manter o aporte de micronutrientes (saladas verdes escuras, azeite extravirgem e castanhas). Hidratação inalterada.";
+            document.getElementById('rest_wed').value = "Noite com foco total em sono REM e profundo.";
+
+            document.getElementById('title_thu').innerText = "Foco: Treino C - Foco Posterior de Coxa & Glúteos";
+            document.getElementById('train_thu').value = `[INTERMEDIÁRIO • POSTERIOR & GLÚTEOS]
+- Elevação Pélvica com barra ou máquina (4x10-12 com pico de contração)
+- Stiff com halteres ou barra (3x10 - mantendo a coluna 100% neutra)
+- Cadeira Flexora (3x12 com série decrescente na última)
+- Cadeira Abdutora (3x15)
+- Panturrilha no Leg Press (4x15)
+- ${cardioDesc}`;
+            document.getElementById('food_thu').value = "Carboidrato estratégico no pré-treino para manter alto rendimento nas séries de perna. Jantar com carnes magras ou peixe.";
+            document.getElementById('rest_thu').value = "Pernas elevadas e hidratação ativa constante.";
+
+            document.getElementById('title_fri').innerText = "Foco: Treino D - Hipertrofia de Tronco, Braços & Cardio";
+            document.getElementById('train_fri').value = `[INTERMEDIÁRIO • TRONCO & CARDIO RITMADO]
+- Supino reto com barra ou halteres (3x10)
+- Remada unilateral com halter (serrote) (3x10 cada lado)
+- Elevação lateral no cabo/polia (4x12)
+- Tríceps francês + Rosca martelo (3x12)
+- Cardio ritmado de 20 minutos (FC em 70-75% da máxima)`;
+            document.getElementById('food_fri').value = "Manter a consistência na sexta-feira à noite. Beber 2 copos de água para cada refeição e evitar excessos calóricos.";
+            document.getElementById('rest_fri').value = "Revisão dos pesos utilizados na semana e preparação para o treino complementar de sábado.";
+
+            document.getElementById('title_sat').innerText = "Foco: Treino E - Full Body Metabólico, Core & Cardio";
+            document.getElementById('train_sat').value = `[INTERMEDIÁRIO • SÁBADO METABÓLICO]
+- Aquecimento articular dinâmico (5 a 8 min)
+- ${squatBase} com carga moderada (3x12)
+- ${backBase} (3x12)
+- Flexão de braço ou Supino máquina (3x12)
+- Elevação lateral com halteres (3x15)
+- Circuito de Core: Prancha (3x45s) + Abdominal bicicleta (3x20)
+- ${cardioDesc}`;
+            document.getElementById('food_sat').value = "Manter aporte proteico e carboidratos limpos no pré e pós-treino de sábado.";
+            document.getElementById('rest_sat').value = `Cumprir ${waterLiters}L de água e alongar cadeia posterior após o treino.`;
+
+            document.getElementById('title_sun').innerText = "Foco: Recuperação Ativa, Mobilidade & Cardio Leve";
+            document.getElementById('train_sun').value = `[INTERMEDIÁRIO • DOMINGO ATIVO]
+- 30 a 40 minutos de caminhada rápida, pedal leve ou elíptico em Zona 2 (baixa intensidade)
+- 15 minutos de mobilidade de quadril, coluna torácica e ombros
+- Liberação miofascial leve ou descanso total se o corpo pedir recuperação`;
+            document.getElementById('food_sun').value = "Alimentação equilibrada e rica em micronutrientes para otimizar a recuperação muscular.";
+            document.getElementById('rest_sun').value = "Sono restaurador de 8h para iniciar segunda-feira com força máxima.";
+
         } else {
-          const side = isMale ? 40 : 25;
-          return `Barra com ${side} kg de cada lado (${side * 2 + 10} kg total)`;
+            document.getElementById('title_mon').innerText = "Foco: Treino de Alta Densidade - Pernas Completo (Foco Quadríceps)";
+            document.getElementById('train_mon').value = `[AVANÇADO • QUADRÍCEPS & PANTURRILHA]
+- Mobilidade articular e aquecimento dinâmico
+- ${squatBase} (5x8-10, carga progressiva, esforço 8.5/10)
+- Leg Press 45° (4x10 com pausa curta de 10s na última série)
+- Cadeira Extensora (4x12 com série decrescente dupla na última)
+- Panturrilha em pé no Smith (5x15 com 3s na excêntrica)
+- Prancha com peso sobre as costas (4x1min)
+- ${cardioDesc}`;
+            document.getElementById('food_mon').value = "Dieta calibrada: 2.0g a 2.2g de proteína/kg. Alto glicogênio pré-treino (aveia, frutas ou arroz branco) e pós-treino com rápida assimilação.";
+            document.getElementById('rest_mon').value = `Bater no mínimo ${waterLiters}L de água e eletrólitos. Sono anabólico de 8 horas.`;
+
+            document.getElementById('title_tue').innerText = "Foco: Treino de Empurrar (Peitoral, Ombros & Tríceps)";
+            document.getElementById('train_tue').value = `[AVANÇADO • TREINO DE EMPURRAR]
+- Supino inclinado com halteres pesados (4x8-10)
+- Supino reto na barra ou máquina convergente (4x10)
+- Crucifixo no cabo/polia (3x12 com contração máxima)
+- ${shoulderBase} (4x10)
+- Elevação lateral com halteres (5x12-15 com execução estrita)
+- Tríceps testa com barra W + Tríceps corda (4x10-12)
+- ${cardioDesc}`;
+            document.getElementById('food_tue').value = "Controle minucioso de calorias e macros. Fracionamento em 4 a 5 refeições com alta densidade nutricional.";
+            document.getElementById('rest_tue').value = "Alongamento fascial leve de peitorais e manguito.";
+
+            document.getElementById('title_wed').innerText = "Foco: Treino de Puxar (Dorsais, Deltoides & Bíceps)";
+            document.getElementById('train_wed').value = `[AVANÇADO • TREINO DE PUXAR]
+- Barra fixa ou Puxada frontal pesada (4x8-10)
+- ${backBase} (4x8-10)
+- Puxada com triângulo na polia (3x10)
+- Crucifixo inverso no voador ou com halteres (4x15)
+- Rosca Scott na máquina ou banco (4x10 com ênfase na fase excêntrica)
+- Rosca alternada com halteres (3x10)
+- 15 min de cardio leve para depuração de lactato`;
+            document.getElementById('food_wed').value = "Ingestão abundante de antioxidantes, ômega-3 e fibras para combater inflamação muscular.";
+            document.getElementById('rest_wed').value = "Recuperação profunda. Monitorar a prontidão física.";
+
+            document.getElementById('title_thu').innerText = "Foco: Cadeia Posterior, Isquiotibiais & Glúteos";
+            document.getElementById('train_thu').value = `[AVANÇADO • ISQUIOTIBIAIS & GLÚTEOS]
+- Elevação pélvica pesada com barra (4x8-10 com isometria de 2s no topo)
+- Stiff com barra (4x10 mantendo amplitude máxima segura)
+- ${legCurlBase} (4x10 com excêntrica de 3 segundos)
+- Cadeira Adutora e Abdutora (3x15 cada)
+- Panturrilha sentado no banco sóleo (4x15)
+- ${cardioDesc}`;
+            document.getElementById('food_thu').value = "Refeição pós-treino reforçada em carboidratos complexos e proteínas para repor depósitos intramusculares.";
+            document.getElementById('rest_thu').value = "Banho de contraste ou liberação miofascial manual para pernas.";
+
+            document.getElementById('title_fri').innerText = "Foco: Deltoides Completos, Braços & Condicionamento HIIT";
+            document.getElementById('train_fri').value = `[AVANÇADO • BRAÇOS, OMBROS & HIIT]
+- Desenvolvimento militar ou máquina (4x8-10)
+- Elevação lateral na polia por trás das costas (4x12)
+- Super-série: Rosca direta barra reta (4x10) + Tríceps paralelas ou banco (4x10)
+- Super-série: Rosca martelo na corda (3x12) + Tríceps francês cabo (3x12)
+- Abdominal na polia (crunches) (4x15)
+- Treino Intervalado: 15 minutos (30s intensidade máxima x 45s repouso)`;
+            document.getElementById('food_fri').value = "Manutenção estrita do planejamento alimentar no fim de semana para não sabotar os ganhos e a definição.";
+            document.getElementById('rest_fri').value = "Boa noite de sono para render no treino complementar de sábado.";
+
+            document.getElementById('title_sat').innerText = "Foco: Pontos Fracos, Core Avançado & Condicionamento";
+            document.getElementById('train_sat').value = `[AVANÇADO • SÁBADO COMPLEMENTAR & CORE]
+- Aquecimento específico e mobilidade articular (8 min)
+- ${backBase} com foco em contração de pico (4x10-12)
+- Elevação lateral no cabo/polia (4x15) + Face pull (4x15)
+- Panturrilha sentado ou no Leg Press (4x15-20)
+- Core Avançado: Ab wheel ou Elevação de pernas na barra (4x12-15) + Prancha lateral (3x45s/lado)
+- ${cardioDesc}`;
+            document.getElementById('food_sat').value = "Manter precisão nos macros e hidratação elevada no sábado para sustentar o volume semanal.";
+            document.getElementById('rest_sat').value = `Bater ${waterLiters}L de água + eletrólitos e realizar liberação miofascial.`;
+
+            document.getElementById('title_sun').innerText = "Foco: Recuperação Ativa, Mobilidade Fascial & Cardio Z2";
+            document.getElementById('train_sun').value = `[AVANÇADO • DOMINGO RECUPERAÇÃO ATIVA]
+- 30 a 45 minutos de cardio contínuo em Zona 2 (60-70% da FC máxima) para depuração metabólica e saúde cardiovascular
+- 15 a 20 minutos de mobilidade articular completa e alongamento fascial
+- Opcional: descanso absoluto se houver sinais de fadiga central acumulada`;
+            document.getElementById('food_sun').value = "Manutenção estrita do planejamento alimentar no domingo para consolidar composição corporal e estoque de glicogênio.";
+            document.getElementById('rest_sun').value = "Sono profundo de 8h e preparação mental para o próximo ciclo semanal.";
         }
-      }
-
-      // 4. Cadeira Extensora
-      if (name.includes('extensora')) {
-        let kg = 25;
-        if (userLevel === 'beginner_zero') kg = isMale ? 25 : 15;
-        else if (userLevel === 'intermediate') kg = isMale ? 55 : 35;
-        else kg = isMale ? 80 : 50;
-        return `Placa de ${kg} kg na máquina`;
-      }
-
-      // 5. Cadeira ou Mesa Flexora
-      if (name.includes('flexora')) {
-        let kg = 20;
-        if (userLevel === 'beginner_zero') kg = isMale ? 20 : 15;
-        else if (userLevel === 'intermediate') kg = isMale ? 45 : 30;
-        else kg = isMale ? 65 : 45;
-        return `Placa de ${kg} kg na máquina`;
-      }
-
-      // 6. Stiff
-      if (name.includes('stiff')) {
-        if (userLevel === 'beginner_zero') {
-          const h = isMale ? 8 : 5;
-          return `Halteres de ${h} kg em cada mão`;
-        } else if (userLevel === 'intermediate') {
-          const side = isMale ? 20 : 12.5;
-          return `Barra com ${side} kg de cada lado (${side * 2 + 10} kg total)`;
-        } else {
-          const side = isMale ? 35 : 20;
-          return `Barra com ${side} kg de cada lado (${side * 2 + 10} kg total)`;
-        }
-      }
-
-      // 7. Elevação Pélvica
-      if (name.includes('pélvica') || name.includes('pelvica')) {
-        if (userLevel === 'beginner_zero') {
-          return "Peso corporal ou anilha de 10 kg sobre o quadril";
-        } else if (userLevel === 'intermediate') {
-          const side = isMale ? 25 : 15;
-          return `Barra com ${side} kg de cada lado (${side * 2 + 10} kg total)`;
-        } else {
-          const side = isMale ? 50 : 30;
-          return `Barra com ${side} kg de cada lado (${side * 2 + 10} kg total)`;
-        }
-      }
-
-      // 8. Supino Reto / Inclinado
-      if (name.includes('supino')) {
-        if (name.includes('halter')) {
-          let h = 8;
-          if (userLevel === 'beginner_zero') h = isMale ? 8 : 4;
-          else if (userLevel === 'intermediate') h = isMale ? 18 : 10;
-          else h = isMale ? 28 : 16;
-          return `Halteres de ${h} kg em cada mão`;
-        } else {
-          let side = 5;
-          if (userLevel === 'beginner_zero') side = isMale ? 5 : 2.5;
-          else if (userLevel === 'intermediate') side = isMale ? 20 : 10;
-          else side = isMale ? 35 : 17.5;
-          return `Barra com ${side} kg de cada lado (${side * 2 + 10} kg total)`;
-        }
-      }
-
-      // 9. Puxada Frontal
-      if (name.includes('puxada') || name.includes('barra fixa')) {
-        let kg = 30;
-        if (userLevel === 'beginner_zero') kg = isMale ? 30 : 20;
-        else if (userLevel === 'intermediate') kg = isMale ? 55 : 35;
-        else kg = isMale ? 80 : 50;
-        return `Placa de ${kg} kg na polia`;
-      }
-
-      // 10. Remadas
-      if (name.includes('remada')) {
-        if (name.includes('halter') || name.includes('serrote')) {
-          let h = 10;
-          if (userLevel === 'beginner_zero') h = isMale ? 10 : 6;
-          else if (userLevel === 'intermediate') h = isMale ? 18 : 10;
-          else h = isMale ? 28 : 16;
-          return `Halter de ${h} kg cada lado`;
-        } else {
-          let kg = 30;
-          if (userLevel === 'beginner_zero') kg = isMale ? 30 : 20;
-          else if (userLevel === 'intermediate') kg = isMale ? 55 : 35;
-          else kg = isMale ? 80 : 50;
-          return `Placa de ${kg} kg na máquina ou polia`;
-        }
-      }
-
-      // 11. Elevação Lateral
-      if (name.includes('lateral')) {
-        let h = 4;
-        if (userLevel === 'beginner_zero') h = isMale ? 4 : 2;
-        else if (userLevel === 'intermediate') h = isMale ? 8 : 5;
-        else h = isMale ? 14 : 8;
-        return `Halteres de ${h} kg em cada mão`;
-      }
-
-      // 12. Desenvolvimento de Ombros
-      if (name.includes('desenvolvimento') || name.includes('militar')) {
-        let h = 6;
-        if (userLevel === 'beginner_zero') h = isMale ? 6 : 4;
-        else if (userLevel === 'intermediate') h = isMale ? 14 : 8;
-        else h = isMale ? 22 : 12;
-        return `Halteres de ${h} kg em cada mão`;
-      }
-
-      // 13. Bíceps
-      if (name.includes('rosca') || name.includes('bíceps') || name.includes('biceps')) {
-        let h = 6;
-        if (userLevel === 'beginner_zero') h = isMale ? 6 : 3;
-        else if (userLevel === 'intermediate') h = isMale ? 12 : 6;
-        else h = isMale ? 18 : 10;
-        return `Halteres de ${h} kg cada mão (ou barra W com ${Math.round(h * 0.8)} kg/lado)`;
-      }
-
-      // 14. Tríceps
-      if (name.includes('tríceps') || name.includes('triceps')) {
-        let kg = 15;
-        if (userLevel === 'beginner_zero') kg = isMale ? 15 : 10;
-        else if (userLevel === 'intermediate') kg = isMale ? 35 : 20;
-        else kg = isMale ? 55 : 35;
-        return `Placa de ${kg} kg na polia`;
-      }
-
-      // 15. Panturrilha
-      if (name.includes('panturrilha')) {
-        if (userLevel === 'beginner_zero') return "Peso corporal ou anilha de 10 kg";
-        const side = (userLevel === 'intermediate') ? (isMale ? 25 : 15) : (isMale ? 45 : 25);
-        return `Smith / Barra com ${side} kg de cada lado (${side * 2} kg total)`;
-      }
-
-      // 16. Prancha Abdominal
-      if (name.includes('prancha')) {
-        if (userLevel === 'beginner_zero') return "Peso corporal no solo (sem sobrecarga de anilha)";
-        const kg = (userLevel === 'intermediate') ? (isMale ? 10 : 5) : (isMale ? 20 : 10);
-        return `Anilha de ${kg} kg posicionada com segurança sobre a lombar/costas`;
-      }
-
-      // 17. Cadeira Abdutora / Adutora
-      if (name.includes('abdutora') || name.includes('adutora')) {
-        let kg = 25;
-        if (userLevel === 'beginner_zero') kg = isMale ? 25 : 20;
-        else if (userLevel === 'intermediate') kg = isMale ? 50 : 35;
-        else kg = isMale ? 75 : 50;
-        return `Placa de ${kg} kg na máquina`;
-      }
-
-      // 18. Abdominais gerais
-      if (name.includes('abdominal') || name.includes('crunches')) {
-        if (userLevel === 'beginner_zero') return "Peso corporal no colchonete";
-        else if (userLevel === 'intermediate') return "Anilha de 5 kg a 10 kg segurada no peito";
-        else return isMale ? "Placa de 45 kg na polia alta (crunches) ou anilha de 15 kg" : "Placa de 30 kg na polia ou anilha de 10 kg";
-      }
-
-      return "Carga moderada calibrada pelo seu nível";
+    
+        // ATRIBUIÇÃO DOS CARDÁPIOS COMPLETOS E ROTINAS DE DESCANSO DINÂMICAS POR OBJETIVO
+        ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach(day => {
+            const foodEl = document.getElementById('food_' + day);
+            if (foodEl) foodEl.value = getMealPlan(goal, day);
+            const restEl = document.getElementById('rest_' + day);
+            if (restEl) restEl.value = getRestPlan(day, waterLiters);
+        });
     }
 
-    function formatExerciseWithWeight(exTitle, setsReps, userSex, userLevel, userWeight) {
-      const weight = getExactWeight(exTitle, userSex, userLevel, userWeight);
-      return `• ${exTitle} (${setsReps}) • ⚖️ Peso Sugerido: ${weight}`;
-    }
-
-    function assembleSpecificWorkouts(level, goal, cardio, limitKnee, limitSpine, limitShoulder, waterLiters, delta = 0, currentWeight = 80, userSex = 'male') {
-      const w = Number(currentWeight) || (userSex === 'male' ? 80 : 65);
-
-      // Ajuste Adaptativo por Ganhos / Trajetória
-      let gainsAdjustmentNotice = "";
-      const absLoss = Math.abs(delta);
-      if (delta < -3) {
-        gainsAdjustmentNotice = `[⚡ AJUSTE ADAPTATIVO CONFORME SEUS GANHOS: ${fmt(absLoss)} KG ELIMINADOS]
-• Impacto Fisiológico: Com menos sobrecarga passiva nas articulações, sua relação potência/peso e coordenação motora estão superiores.
-• Diretriz de Carga: Você está liberado para aumentar em +5% a +10% a sobrecarga nos exercícios guiados e puxadas, mantendo o abdômen sempre ativo (bracing).`;
-      } else if (delta > 3) {
-        gainsAdjustmentNotice = `[⚡ AJUSTE ADAPTATIVO POR GANHO DE MASSA & FORÇA]
-• Anabolismo em Alta: Seus estoques intramusculares de glicogênio estão mais cheios. Aproveite para elevar a densidade de treino com intervalos mais curtos (50s a 1min) e cargas desafiadoras.`;
-      } else {
-        gainsAdjustmentNotice = `[⚡ AJUSTE ADAPTATIVO VIRADA 30 • PROGRESSÃO SEMANAL]
-• Princípio da Sobrecarga Contínua: Registre suas cargas no bloco 'Rastreador de Cargas' abaixo. A cada 10 a 14 dias consistentes, busque progredir 1 repetição ou 1kg a 2kg para estímulo hipertrófico contínuo.`;
-      }
-
-      // Pools dinâmicos com proteção articular
-      const squatsKnee = [
-        "Leg Press 45° (pés altos na plataforma, descida a 90° controlada)",
-        "Agachamento isométrico na parede (Wall Sit)",
-        "Leg Press horizontal unilateral"
-      ];
-      const squatsSpine = [
-        "Leg Press 45° com lombar 100% apoiada no encosto",
-        "Goblet Squat com halter seguro junto ao peito e tronco ereto",
-        "Agachamento guiado no Smith com tronco verticalizado"
-      ];
-      const squatsNormal = [
-        "Agachamento guiado no Smith com pés à frente",
-        "Leg Press 45° com sobrecarga progressiva",
-        "Agachamento livre com barra olímpica",
-        "Goblet Squat com halter pesado",
-        "Agachamento Búlgaro com halteres nas mãos"
-      ];
-
-      const chestPresses = [
-        "Supino reto com barra olímpica",
-        "Supino inclinado com halteres",
-        "Supino reto na máquina articulada",
-        "Supino convergente com pegada ergonômica",
-        "Supino reto com halteres pegada neutra"
-      ];
-
-      const rowsSpine = [
-        "Remada articulada na máquina com peito apoiado no banco",
-        "Remada baixa na polia com peito apoiado no banco inclinado",
-        "Remada unilateral com halter (serrote) com apoio firme"
-      ];
-      const rowsNormal = [
-        "Remada baixa na polia com pegada triângulo",
-        "Remada curvada com barra pegada supinada",
-        "Remada cavalinho com apoio no peito",
-        "Remada articulada unilateral na máquina"
-      ];
-      const pullsVertical = [
-        "Puxada frontal aberta na polia alta",
-        "Puxada frontal com triângulo (pegada neutra)",
-        "Puxada articulada convergente na máquina",
-        "Puxada alta com pegada supinada"
-      ];
-
-      const shouldersProtected = [
-        "Elevação lateral no plano escapular (cotovelos a 30° à frente)",
-        "Remada alta na polia baixa com pegada aberta",
-        "Elevação lateral na polia baixa unilateral"
-      ];
-      const shouldersNormal = [
-        "Desenvolvimento de ombros com halteres no banco 80°",
-        "Desenvolvimento articulado de ombros na máquina",
-        "Elevação lateral com halteres",
-        "Elevação lateral na polia baixa cruzada",
-        "Crucifixo inverso no voador peitoral"
-      ];
-
-      const hamstringsKnee = [
-        "Cadeira flexora sentado com tronco inclinado à frente",
-        "Elevação pélvica no colchonete com isometria de 3s no topo",
-        "Stiff suave com halteres deslizando rente às canelas"
-      ];
-      const hamstringsNormal = [
-        "Mesa flexora deitada",
-        "Cadeira flexora sentado",
-        "Stiff com barra olímpica",
-        "Elevação pélvica pesada com barra"
-      ];
-
-      const bicepsPool = [
-        "Rosca direta com barra W",
-        "Rosca alternada com halteres no banco inclinado",
-        "Rosca martelo com halteres",
-        "Rosca Scott na máquina articulada"
-      ];
-      const tricepsPool = [
-        "Tríceps na polia alta com corda",
-        "Tríceps francês com halter no banco",
-        "Tríceps testa com barra W no banco plano",
-        "Tríceps na polia com barra reta"
-      ];
-
-      // Sorteia os exercícios para o ciclo
-      const pickSquat = limitKnee ? pickRandom(squatsKnee) : (limitSpine ? pickRandom(squatsSpine) : pickRandom(squatsNormal));
-      const pickRow = limitSpine ? pickRandom(rowsSpine) : pickRandom(rowsNormal);
-      const pickShoulder = limitShoulder ? pickRandom(shouldersProtected) : pickRandom(shouldersNormal);
-      const pickHamstring = limitKnee ? pickRandom(hamstringsKnee) : pickRandom(hamstringsNormal);
-      const pickChest = pickRandom(chestPresses);
-      const pickPull = pickRandom(pullsVertical);
-      const pickBiceps = pickRandom(bicepsPool);
-      const pickTriceps = pickRandom(tricepsPool);
-
-      // Helper rápido para formatar cada exercício
-      const f = (ex, sets) => formatExerciseWithWeight(ex, sets, userSex, level, w);
-
-      if (level === 'beginner_zero') {
-        // MON
-        document.getElementById('title_mon').innerText = "Foco: Adaptação Neural & Membros Inferiores";
-        document.getElementById('train_mon').value = `[INICIANTE DO ZERO • PERNAS & CORE]
-${gainsAdjustmentNotice}
-
-1. Aquecimento: 5 min de caminhada leve na esteira
-${f(pickSquat, '3x10-12')}
-${f('Cadeira Extensora', '2x15')}
-${f('Panturrilha no solo ou máquina', '3x15')}
-${f('Prancha abdominal no solo', '3x20 segundos')}
-
-${generateDetailedCardio(cardio, 'mon')}`;
-
-        // TUE
-        document.getElementById('title_tue').innerText = "Foco: Membros Superiores em Aparelhos Guiados";
-        document.getElementById('train_tue').value = `[INICIANTE DO ZERO • SUPERIORES]
-${f(pickPull, '3x12')}
-${f(pickChest, '3x12')}
-${f(pickRow, '3x12')}
-${f(pickTriceps, '2x15')}
-${f(pickBiceps, '2x12')}
-
-${generateDetailedCardio(cardio, 'tue')}`;
-
-        // WED
-        document.getElementById('title_wed').innerText = "Foco: Descanso Ativo & Regeneração Muscular";
-        document.getElementById('train_wed').value = `[DESCANSO ATIVO PARA INICIANTE]
-• Nenhum treino pesado hoje! O descanso é fundamental para consolidar a recuperação articular e muscular.
-• 20 a 30 minutos de caminhada leve ou mobilidade suave em casa.
-• Alongamento relaxante para quadríceps, peitoral e coluna.
-
-${generateDetailedCardio('cardio_low', 'wed')}`;
-
-        // THU
-        document.getElementById('title_thu').innerText = "Foco: Posterior de Coxa, Glúteos & Estabilidade";
-        document.getElementById('train_thu').value = `[INICIANTE DO ZERO • POSTERIOR & GLÚTEOS]
-${f('Elevação Pélvica', '3x15')}
-${f(pickHamstring, '3x12')}
-${f('Cadeira Abdutora', '3x15')}
-${f('Prancha isométrica no solo', '3x25 segundos')}
-
-${generateDetailedCardio(cardio, 'thu')}`;
-
-        // FRI
-        document.getElementById('title_fri').innerText = "Foco: Treino Corporal Completo & Fechamento";
-        document.getElementById('train_fri').value = `[INICIANTE DO ZERO • FULL BODY FECHAMENTO]
-${f(pickPull, '2x12')}
-${f(pickChest, '2x12')}
-${f(pickSquat, '2x12')}
-${f(pickShoulder, '3x12')}
-${f('Abdominal supra no colchonete', '3x15')}
-
-${generateDetailedCardio(cardio, 'fri')}`;
-
-      } else if (level === 'intermediate') {
-        // MON
-        document.getElementById('title_mon').innerText = "Foco: Treino A - Inferiores Força & Hipertrofia";
-        document.getElementById('train_mon').value = `[INTERMEDIÁRIO • INFERIORES FORÇA]
-${gainsAdjustmentNotice}
-
-1. Aquecimento específico na primeira série com 40% da carga de trabalho
-${f(pickSquat, '4x10-12')}
-${f('Cadeira Extensora', '3x12')}
-${f(pickHamstring, '4x10')}
-${f('Panturrilha no Smith ou em pé', '4x15')}
-${f('Prancha com anilha sobre as costas', '3x45 segundos')}
-${f('Abdominal infra no banco', '3x15')}
-
-${generateDetailedCardio(cardio, 'mon')}`;
-
-        // TUE
-        document.getElementById('title_tue').innerText = "Foco: Treino B - Superiores (Peito, Costas & Ombros)";
-        document.getElementById('train_tue').value = `[INTERMEDIÁRIO • SUPERIORES COMPLETO]
-${f(pickChest, '4x10-12')}
-${f(pickPull, '4x10')}
-${f(pickRow, '3x10-12')}
-${f(pickShoulder, '4x12')}
-${f(pickTriceps, '3x12')}
-${f(pickBiceps, '3x12')}
-
-${generateDetailedCardio(cardio, 'tue')}`;
-
-        // WED
-        document.getElementById('title_wed').innerText = "Foco: Descanso Ativo & Descompressão Articular";
-        document.getElementById('train_wed').value = `[RECUPERAÇÃO ATIVA METABÓLICA]
-• Descompressão da coluna e tendões para restabelecer a potência muscular.
-• 25 a 35 minutos de cardio contínuo na Zona 2 (queima lipídica).
-• Sessão de 15 minutos de mobilidade de quadril, tornozelos e escápulas.
-
-${generateDetailedCardio('cardio_mid', 'wed')}`;
-
-        // THU
-        document.getElementById('title_thu').innerText = "Foco: Treino C - Foco Posterior de Coxa & Glúteos";
-        document.getElementById('train_thu').value = `[INTERMEDIÁRIO • POSTERIOR & GLÚTEOS]
-${f('Elevação Pélvica pesada com barra', '4x10-12')}
-${f('Stiff com barra ou halteres', '4x10')}
-${f('Cadeira Flexora', '3x12')}
-${f('Cadeira Abdutora', '3x15')}
-${f('Panturrilha no Leg Press', '4x15')}
-
-${generateDetailedCardio(cardio, 'thu')}`;
-
-        // FRI
-        document.getElementById('title_fri').innerText = "Foco: Treino D - Tronco, Braços & Condicionamento";
-        document.getElementById('train_fri').value = `[INTERMEDIÁRIO • TRONCO & CARDIO RITMADO]
-${f('Supino inclinado com halteres', '3x10-12')}
-${f('Remada unilateral com halter (serrote)', '3x10')}
-${f('Elevação lateral com halteres', '4x12')}
-${f(pickTriceps, '3x12')}
-${f(pickBiceps, '3x12')}
-${f('Abdominal na polia ou supra', '3x15')}
-
-${generateDetailedCardio(cardio, 'fri')}`;
-
-      } else {
-        // ADVANCED
-        // MON
-        document.getElementById('title_mon').innerText = "Foco: Treino de Alta Densidade - Quadríceps & Panturrilha";
-        document.getElementById('train_mon').value = `[AVANÇADO • QUADRÍCEPS & PANTURRILHA FORÇA MÁXIMA]
-${gainsAdjustmentNotice}
-
-1. Aquecimento dinâmico + 2 séries leves de ativação neuromuscular
-${f(pickSquat, '5x8-10')}
-${f('Leg Press 45° pesado', '4x10')}
-${f('Cadeira Extensora', '4x12')}
-${f('Panturrilha no Smith ou em pé', '5x15')}
-${f('Prancha com anilha sobre as costas', '4x1 minuto')}
-
-${generateDetailedCardio(cardio, 'mon')}`;
-
-        // TUE
-        document.getElementById('title_tue').innerText = "Foco: Treino de Empurrar (Peitoral, Ombros & Tríceps)";
-        document.getElementById('train_tue').value = `[AVANÇADO • PUSH DAY - ALTA TENSÃO]
-${f(pickChest, '4x8-10')}
-${f('Supino inclinado com halteres', '4x10')}
-${f('Crucifixo no cabo polia ou voador', '3x12')}
-${f(pickShoulder, '4x10')}
-${f('Elevação lateral com halteres', '5x12-15')}
-${f(pickTriceps, '4x10-12')}
-
-${generateDetailedCardio(cardio, 'tue')}`;
-
-        // WED
-        document.getElementById('title_wed').innerText = "Foco: Treino de Puxar (Dorsais, Deltoides Posteriores & Bíceps)";
-        document.getElementById('train_wed').value = `[AVANÇADO • PULL DAY - DENSIDADE DE COSTAS]
-${f(pickPull, '4x8-10')}
-${f(pickRow, '4x8-10')}
-${f('Puxada frontal com triângulo', '3x10')}
-${f('Crucifixo inverso no voador', '4x15')}
-${f(pickBiceps, '4x10')}
-${f('Rosca martelo com halteres', '3x10-12')}
-
-${generateDetailedCardio(cardio, 'wed')}`;
-
-        // THU
-        document.getElementById('title_thu').innerText = "Foco: Cadeia Posterior, Isquiotibiais & Glúteos";
-        document.getElementById('train_thu').value = `[AVANÇADO • POSTERIOR & GLÚTEOS DE ELITE]
-${f('Elevação Pélvica pesada com barra', '4x8-10')}
-${f('Stiff com barra', '4x10')}
-${f(pickHamstring, '4x10')}
-${f('Cadeira Abdutora', '3x15')}
-${f('Panturrilha sentado no banco sóleo', '4x15')}
-
-${generateDetailedCardio(cardio, 'thu')}`;
-
-        // FRI
-        document.getElementById('title_fri').innerText = "Foco: Deltoides Completos, Braços & Condicionamento";
-        document.getElementById('train_fri').value = `[AVANÇADO • BRAÇOS, OMBROS & CONDICIONAMENTO]
-${f('Desenvolvimento militar ou com halteres', '4x8-10')}
-${f('Elevação lateral na polia baixa', '4x12')}
-${f(pickBiceps, '4x10')}
-${f(pickTriceps, '4x10')}
-${f('Rosca martelo com halteres', '3x12')}
-${f('Abdominal na polia alta (crunches)', '4x15')}
-
-${generateDetailedCardio(cardio, 'fri')}`;
-      }
-
-      // Atribuição dos cardápios e descanso nos textareas
-      ['mon', 'tue', 'wed', 'thu', 'fri'].forEach(day => {
-        const foodEl = document.getElementById('food_' + day);
-        if (foodEl) foodEl.value = getMealPlan(goal, day);
-        const restEl = document.getElementById('rest_' + day);
-        if (restEl) restEl.value = getRestPlan(day, waterLiters);
-      });
-    }
-function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
+  // 5. PROCESSAMENTO PRINCIPAL DA ANÁLISE
+  function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
     const d = collectAndValidate(silent);
     if (!d) return;
 
@@ -6673,7 +6363,7 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
 
     // Taxa Metabólica Basal (Mifflin-St Jeor)
     const bmr = d.age >= 18 ? (10 * d.current + 6.25 * d.heightCm - 5 * d.age + (d.sex === 'male' ? 5 : -161)) : null;
-    const multipliers = { sedentary: 1.2, light: 1.375, moderate: 1.55, intense: 1.725 };
+    const multipliers = { sedentary: 1.2, light: 1.375, moderate: 1.55, intense: 1.725, very_intense: 1.9 };
     const tdee = bmr === null ? null : bmr * (multipliers[d.routine] || 1.2);
     const water = d.current * 0.035;
 
@@ -6746,22 +6436,13 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
 
     autoOpenToday(); // Abre exclusivamente o dia atual da semana
     toggleAIResultsPanel(true); // Abre o painel unificado sob a seta única
-
-    // Pareceres seguros e diagnósticos da BioAnálise (executa primeiro para garantir que todas as caixas apareçam)
-    try {
-      safeInsights(d, result);
-    } catch(e) {
-      console.error('Erro em safeInsights:', e);
-    }
-
-    // Montagem dinâmica dos treinos com pesos específicos em kg
+    // Montagem dinâmica dos treinos (se solicitado)
     if (assembleWorkouts) {
-      try {
-        assembleSpecificWorkouts(d.level, d.goal, d.cardio, d.knee, d.spine, d.shoulder, fmt(result.water), delta, d.current, d.sex);
-      } catch(e) {
-        console.error('Erro em assembleSpecificWorkouts:', e);
-      }
+      assembleSpecificWorkouts(d.level, d.goal, d.cardio, d.knee, d.spine, d.shoulder, fmt(result.water));
     }
+
+    // Pareceres seguros
+    safeInsights(d, result);
 
     // Exibição do painel
     const panel = $('ai_results_panel');
@@ -6781,18 +6462,6 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
   }
 
   // 6. PERSISTÊNCIA LOCAL ROBUSTA
-  
-  function recalculateWorkoutsAndDiet() {
-    executeFullAIAnalysis(true, true);
-    if (typeof window.refreshPlanButtons === 'function') {
-      window.refreshPlanButtons();
-    }
-    if (typeof showToastNotification === 'function') {
-      showToastNotification('⚡ Treinos & Cargas Recalculados!', 'Novas variações de exercícios foram sorteadas com sugestões de carga para o seu nível.', 'movement');
-    }
-  }
-  window.recalculateWorkoutsAndDiet = recalculateWorkoutsAndDiet;
-
   function saveAllData() {
     try {
       const data = {};
@@ -6840,16 +6509,8 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
         }
       });
 
-      // Migração e atualização automática: se os dados forem antigos ou sem carga, recalcula com variações frescas!
-      const currentThu = String(data['train_thu'] || '');
-      const isOldFormat = currentThu.includes('10 tiros intervalados') || !currentThu.includes('Peso Sugerido:');
-      if (isOldFormat || localStorage.getItem('v30_engine_version') !== 'v5') {
-        localStorage.setItem('v30_engine_version', 'v5');
-        setTimeout(() => {
-          executeFullAIAnalysis(true, true);
-          if (typeof window.refreshPlanButtons === 'function') window.refreshPlanButtons();
-        }, 150);
-      } else if (data.ai_panel_visible === true) {
+      // Se o painel estava visível, restaura os cálculos e o painel sem sobrescrever os textos customizados do planner
+      if (data.ai_panel_visible === true) {
         executeFullAIAnalysis(false, true);
       }
     } catch (e) {
@@ -6906,6 +6567,7 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
 
     const wInitial = num('user_weight_initial') || 0;
     const wCurrent = num('user_weight_current') || 0;
+    const wGoal = num('user_weight_goal') || 0;
     const delta = (wCurrent - wInitial).toFixed(1);
     const deltaText = delta < 0 ? `${delta} kg (redução)` : delta > 0 ? `+${delta} kg (ganho)` : '0.0 kg (estável)';
 
@@ -6931,18 +6593,28 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
     const trainWed = cleanText('train_wed');
     const trainThu = cleanText('train_thu');
     const trainFri = cleanText('train_fri');
+    const trainSat = cleanText('train_sat');
+    const trainSun = cleanText('train_sun');
 
     const titleMon = $('title_mon')?.textContent || 'Segunda-feira';
     const titleTue = $('title_tue')?.textContent || 'Terça-feira';
     const titleWed = $('title_wed')?.textContent || 'Quarta-feira';
     const titleThu = $('title_thu')?.textContent || 'Quinta-feira';
     const titleFri = $('title_fri')?.textContent || 'Sexta-feira';
+    const titleSat = $('title_sat')?.textContent || 'Sábado';
+    const titleSun = $('title_sun')?.textContent || 'Domingo';
 
     let msg = `*🔥 VIRADA 30 • PLANNER DE TREINO & BIOANÁLISE*\n\n`;
     msg += `👤 *Aluno(a):* ${name}\n`;
     if (trainer) msg += `👨‍🏫 *Professor/Personal:* ${trainer}\n`;
     if (projectTime) msg += `⏱️ *Tempo no Projeto:* ${projectTime}\n`;
-    msg += `⚖️ *Evolução de Peso:* ${wInitial} kg ➔ ${wCurrent} kg (${deltaText})\n\n`;
+    msg += `⚖️ *Evolução de Peso:* ${wInitial} kg ➔ ${wCurrent} kg (${deltaText})\n`;
+    if (wGoal > 0) {
+      const diffGoal = (wGoal - wCurrent).toFixed(1);
+      const goalStatus = Math.abs(Number(diffGoal)) < 0.05 ? 'meta atingida!' : Number(diffGoal) < 0 ? `faltam ${Math.abs(Number(diffGoal)).toFixed(1)} kg para perder` : `faltam +${Number(diffGoal).toFixed(1)} kg para ganhar`;
+      msg += `🎯 *Peso Objetivo:* ${wGoal} kg (${goalStatus})\n`;
+    }
+    msg += `\n`;
 
     msg += `*📊 METAS E BIOMETRIA:*\n`;
     msg += `• *Peso na Balança:* ${wCurrent} kg\n`;
@@ -6959,6 +6631,8 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
     msg += `🗓️ *QUARTA — ${titleWed}*\n${trainWed}\n\n`;
     msg += `🗓️ *QUINTA — ${titleThu}*\n${trainThu}\n\n`;
     msg += `🗓️ *SEXTA — ${titleFri}*\n${trainFri}\n\n`;
+    msg += `🗓️ *SÁBADO — ${titleSat}*\n${trainSat}\n\n`;
+    msg += `🗓️ *DOMINGO — ${titleSun}*\n${trainSun}\n\n`;
     msg += `💪 _VIRADA 30 • Foco e Disciplina!_\n⚡ _Desenvolvido por Diego Santos • Contato: (47) 99954-5896_`;
 
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
@@ -6989,7 +6663,7 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
 
     if (willOpen && currentViewMode !== 'all') {
       // Fecha todos os outros dias para manter apenas o dia selecionado aberto (acordeão)
-      ['mon', 'tue', 'wed', 'thu', 'fri'].forEach(d => {
+      ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach(d => {
         if (d !== day) {
           const ob = document.getElementById('body_' + d);
           const oa = document.getElementById('arrow_' + d);
@@ -7056,21 +6730,21 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
 
   // ===== 1. PROGRESSO SEMANAL & GAMIFICAÇÃO =====
   function updateWeeklyProgress() {
-    const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
     let completed = 0;
     days.forEach(d => {
       const chk = document.getElementById('check_' + d);
       if (chk && chk.checked) completed++;
     });
-    const pct = Math.round((completed / 5) * 100);
+    const pct = Math.round((completed / 7) * 100);
     const fill = document.getElementById('weekly_progress_fill');
     const text = document.getElementById('weekly_progress_text');
     if (fill) fill.style.width = pct + '%';
     if (text) {
-      if (completed === 5) {
+      if (completed === 7) {
         text.innerHTML = '🎉 <span style="color:#ccff00;">Meta 100% Cumprida! Parabéns!</span>';
       } else {
-        text.textContent = `${completed} de 5 dias concluídos (${pct}%)`;
+        text.textContent = `${completed} de 7 dias concluídos (${pct}%)`;
       }
     }
   }
@@ -7078,10 +6752,10 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
 
   // ===== 2. DETECÇÃO AUTOMÁTICA DO DIA ATUAL =====
   function autoOpenToday() {
-    const dayMap = { 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri' };
+    const dayMap = { 0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat' };
     const cur = new Date().getDay();
     const todayCode = dayMap[cur] || 'mon';
-    const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
     // Fecha todos os dias primeiro para que apenas o dia atual fique aberto
     days.forEach(d => {
@@ -7111,7 +6785,7 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
 
   // ===== 3. COMPARTILHAR / COPIAR APENAS O TREINO DE HOJE =====
   function getDaySummary(day) {
-    const dayNames = { mon: 'Segunda-feira', tue: 'Terça-feira', wed: 'Quarta-feira', thu: 'Quinta-feira', fri: 'Sexta-feira' };
+    const dayNames = { mon: 'Segunda-feira', tue: 'Terça-feira', wed: 'Quarta-feira', thu: 'Quinta-feira', fri: 'Sexta-feira', sat: 'Sábado', sun: 'Domingo' };
     const name = (document.getElementById('student_name') || {}).value || 'Praticante';
     const title = (document.getElementById('title_' + day) || {}).innerText || '';
     const train = (document.getElementById('train_' + day) || {}).value || '';
@@ -7195,258 +6869,12 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
     const next = (current === idx) ? (idx - 1) : idx;
     localStorage.setItem('v30_water_glasses', String(next));
     renderWaterGlasses();
-    initReminders();
   }
 
   function resetWaterTracker() {
     localStorage.setItem('v30_water_glasses', '0');
     renderWaterGlasses();
   }
-  
-  // ==========================================================================
-  // MOTOR DE LEMBRETES INTELIGENTES: ÁGUA & MOVIMENTO (WEB NOTIFICATIONS & AUDIO)
-  // ==========================================================================
-  let reminderTimerInterval = null;
-  let reminderCycleCount = 0;
-
-  function playReminderSound() {
-    try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) return;
-      const ctx = new AudioContextClass();
-      const now = ctx.currentTime;
-
-      // Chime amigável em duas notas: 587.33Hz (Ré) -> 880Hz (Lá)
-      const osc1 = ctx.createOscillator();
-      const osc2 = ctx.createOscillator();
-      const gain = ctx.createGain();
-
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(587.33, now);
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(880, now + 0.14);
-
-      gain.gain.setValueAtTime(0.2, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
-
-      osc1.connect(gain);
-      osc2.connect(gain);
-      gain.connect(ctx.destination);
-
-      osc1.start(now);
-      osc1.stop(now + 0.14);
-      osc2.start(now + 0.14);
-      osc2.stop(now + 0.55);
-    } catch (e) {
-      console.warn('Erro ao sintetizar áudio de lembrete:', e);
-    }
-  }
-
-  function toggleReminders() {
-    const isEnabled = localStorage.getItem('v30_reminders_enabled') === 'true';
-    if (!isEnabled) {
-      // Solicita permissão nativa de notificações no navegador
-      if ('Notification' in window) {
-        if (Notification.permission === 'default') {
-          Notification.requestPermission().then(permission => {
-            activateReminders();
-          });
-          return;
-        } else if (Notification.permission === 'denied') {
-          showToastNotification('⚠️ Notificações no Navegador', 'As notificações de sistema estão bloqueadas. Os avisos funcionarão com som e banners dentro do app!', 'water');
-        }
-      }
-      activateReminders();
-    } else {
-      deactivateReminders();
-    }
-  }
-
-  function activateReminders() {
-    localStorage.setItem('v30_reminders_enabled', 'true');
-    updateReminderUI(true);
-    scheduleNextReminder();
-    showToastNotification('💧 Lembretes Ativados!', 'Você receberá avisos sonoros e notificações periódicas para hidratação e pausas ativas.', 'water');
-  }
-
-  function deactivateReminders() {
-    localStorage.setItem('v30_reminders_enabled', 'false');
-    if (reminderTimerInterval) {
-      clearInterval(reminderTimerInterval);
-      reminderTimerInterval = null;
-    }
-    updateReminderUI(false);
-  }
-
-  function changeReminderInterval(minutes) {
-    localStorage.setItem('v30_reminders_interval', String(minutes));
-    if (localStorage.getItem('v30_reminders_enabled') === 'true') {
-      scheduleNextReminder();
-    }
-  }
-
-  function scheduleNextReminder() {
-    if (reminderTimerInterval) clearInterval(reminderTimerInterval);
-    const mins = parseInt(localStorage.getItem('v30_reminders_interval') || '60', 10);
-    const ms = mins * 60 * 1000;
-
-    reminderTimerInterval = setInterval(() => {
-      triggerReminderTick();
-    }, ms);
-  }
-
-  function triggerReminderTick() {
-    reminderCycleCount++;
-    // Alterna: Ciclo par = Água, Ciclo ímpar = Movimento/Postura
-    const isWater = (reminderCycleCount % 2 === 1);
-    
-    if (isWater) {
-      fireWaterReminder();
-    } else {
-      fireMovementReminder();
-    }
-  }
-
-  function fireWaterReminder() {
-    playReminderSound();
-    if (navigator.vibrate) navigator.vibrate([100, 80, 100]);
-
-    const title = '💧 VIRADA 30 • Hora do Gole de Água!';
-    const body = 'Beba 250ml a 350ml de água agora para manter seu metabolismo acelerado e articulações protegidas.';
-
-    // Notificação de Sistema (aparece na barra de notificações do celular/PC)
-    if ('Notification' in window && Notification.permission === 'granted') {
-      try {
-        new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/3105/3105807.png' });
-      } catch(e) {}
-    }
-
-    // Toast interativo no app
-    showToastNotification(title, body, 'water');
-  }
-
-  function fireMovementReminder() {
-    playReminderSound();
-    if (navigator.vibrate) navigator.vibrate([120, 60, 120]);
-
-    const title = '🚶 VIRADA 30 • Quebre o Sedentarismo!';
-    const body = 'Levante-se da cadeira por 2 minutos! Estique a coluna, gire os ombros e dê alguns passos para ativar a circulação.';
-
-    if ('Notification' in window && Notification.permission === 'granted') {
-      try {
-        new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/2964/2964514.png' });
-      } catch(e) {}
-    }
-
-    showToastNotification(title, body, 'movement');
-  }
-
-  function testReminderAlert() {
-    playReminderSound();
-    if (navigator.vibrate) navigator.vibrate([80, 50, 80]);
-
-    // Teste alternado
-    if (reminderCycleCount % 2 === 0) {
-      fireWaterReminder();
-    } else {
-      fireMovementReminder();
-    }
-    reminderCycleCount++;
-  }
-
-  function showToastNotification(title, desc, type) {
-    const toast = document.getElementById('v30_reminder_toast');
-    if (!toast) return;
-
-    const tIcon = document.getElementById('toast_icon');
-    const tTitle = document.getElementById('toast_title');
-    const tDesc = document.getElementById('toast_desc');
-    const tBtn = document.getElementById('toast_action_btn');
-
-    if (tIcon) tIcon.textContent = (type === 'water') ? '💧' : '🚶';
-    if (tTitle) tTitle.textContent = title;
-    if (tDesc) tDesc.textContent = desc;
-
-    if (tBtn) {
-      if (type === 'water') {
-        tBtn.style.display = 'inline-block';
-        tBtn.textContent = '+1 Copo Marcado (+500ml)';
-        tBtn.style.background = '#38bdf8';
-      } else {
-        tBtn.style.display = 'inline-block';
-        tBtn.textContent = 'Feito! Alongado ➔';
-        tBtn.style.background = '#ccff00';
-      }
-    }
-
-    toast.classList.add('active');
-
-    // Auto-fecha após 12 segundos
-    clearTimeout(toast.dismissTimeout);
-    toast.dismissTimeout = setTimeout(() => {
-      dismissReminderToast();
-    }, 12000);
-  }
-
-  function dismissReminderToast() {
-    const toast = document.getElementById('v30_reminder_toast');
-    if (toast) toast.classList.remove('active');
-  }
-
-  function confirmToastWaterDrink() {
-    const cur = parseInt(localStorage.getItem('v30_water_glasses') || '0', 10);
-    const next = cur + 1;
-    localStorage.setItem('v30_water_glasses', String(next));
-    renderWaterGlasses();
-    playReminderSound();
-    dismissReminderToast();
-  }
-
-  function updateReminderUI(enabled) {
-    const btn = document.getElementById('btn_toggle_reminders');
-    const badge = document.getElementById('reminder_status_badge');
-    const select = document.getElementById('reminder_interval_select');
-
-    const savedMin = localStorage.getItem('v30_reminders_interval') || '60';
-    if (select) select.value = savedMin;
-
-    if (enabled) {
-      if (btn) {
-        btn.textContent = 'Desativar Lembretes';
-        btn.style.background = 'rgba(239, 68, 68, 0.15)';
-        btn.style.borderColor = '#ef4444';
-        btn.style.color = '#ef4444';
-      }
-      if (badge) {
-        badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;"></span> Status: Ativo (A cada ${savedMin} min)`;
-        badge.style.color = '#10b981';
-      }
-    } else {
-      if (btn) {
-        btn.textContent = 'Ativar Lembretes';
-        btn.style.background = 'rgba(56, 189, 248, 0.15)';
-        btn.style.borderColor = '#38bdf8';
-        btn.style.color = '#38bdf8';
-      }
-      if (badge) {
-        badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#64748b;"></span> Status: Desativado`;
-        badge.style.color = '#64748b';
-      }
-    }
-  }
-
-  function initReminders() {
-    const isEnabled = localStorage.getItem('v30_reminders_enabled') === 'true';
-    updateReminderUI(isEnabled);
-    if (isEnabled) scheduleNextReminder();
-  }
-
-  window.toggleReminders = toggleReminders;
-  window.testReminderAlert = testReminderAlert;
-  window.changeReminderInterval = changeReminderInterval;
-  window.dismissReminderToast = dismissReminderToast;
-  window.confirmToastWaterDrink = confirmToastWaterDrink;
-
   window.resetWaterTracker = resetWaterTracker;
 
   // ===== 6. RASTREADOR DE CARGAS =====
@@ -8228,9 +7656,10 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
     const heightEl = document.getElementById('user_height');
     const initWeightEl = document.getElementById('user_weight_initial');
     const curWeightEl = document.getElementById('user_weight_current');
+    const goalWeightEl = document.getElementById('user_weight_goal');
     
     // Limpa estados visuais anteriores de erro
-    [nameEl, ageEl, heightEl, initWeightEl, curWeightEl].forEach(el => {
+    [nameEl, ageEl, heightEl, initWeightEl, curWeightEl, goalWeightEl].forEach(el => {
       if (el) el.classList.remove('input-field-error');
     });
 
@@ -8239,6 +7668,7 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
     const height = num('user_height');
     const initial = num('user_weight_initial');
     const current = num('user_weight_current');
+    const goalWeight = num('user_weight_goal');
     const sex = radio('user_sex', '');
 
     if (!name) {
@@ -8283,6 +7713,15 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
         curWeightEl.focus();
       }
       validationError('Preenchimento obrigatório: informe seu peso atual em kg para avançar.', 'user_weight_current');
+      return false;
+    }
+
+    if (!goalWeight || goalWeight <= 0 || goalWeight > 500) {
+      if (goalWeightEl) {
+        goalWeightEl.classList.add('input-field-error');
+        goalWeightEl.focus();
+      }
+      validationError('Preenchimento obrigatório: informe seu peso objetivo em kg para avançar.', 'user_weight_goal');
       return false;
     }
 
@@ -8407,7 +7846,7 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
     {
       title: '1. Seu Treino Semanal (Planner)',
       badge: 'Dica 1 de 4',
-      desc: 'Aqui está sua rotina completa de Segunda a Sexta, com séries, repetições, tempos de descanso e observações feitas sob medida para o seu objetivo.',
+      desc: 'Aqui está sua rotina completa de Segunda a Domingo, com séries, repetições, tempos de descanso e observações feitas sob medida para o seu objetivo.',
       icon: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
     },
     {
@@ -8836,7 +8275,7 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
 
   document.addEventListener('DOMContentLoaded', () => {
     // Validação nativa nos campos numéricos no evento blur
-    ['user_age', 'user_height', 'user_weight_initial', 'user_weight_current'].forEach(id => {
+    ['user_age', 'user_height', 'user_weight_initial', 'user_weight_current', 'user_weight_goal'].forEach(id => {
       const el = $(id);
       if (!el) return;
       el.required = true;
@@ -8862,7 +8301,7 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
     renderWaterGlasses();
     autoOpenToday();
 
-    ['mon', 'tue', 'wed', 'thu', 'fri'].forEach(d => {
+    ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach(d => {
       const chk = document.getElementById('check_' + d);
       if (chk) chk.addEventListener('change', updateWeeklyProgress);
     });
@@ -8984,44 +8423,6 @@ function executeFullAIAnalysis(assembleWorkouts = true, silent = false) {
     line-height: 1.45;
     flex-shrink: 0;
     font-weight: 800;
-}
-
-.v30-train-item {
-    margin: 4px 0 8px 0;
-}
-.v30-weight-badge {
-    background: rgba(204, 255, 0, 0.08);
-    border: 1px solid rgba(204, 255, 0, 0.3);
-    border-radius: 7px;
-    padding: 6px 10px;
-    margin: 2px 0 6px 0;
-    color: #e2e8f0;
-    font-size: 11.5px;
-    line-height: 1.45;
-    box-sizing: border-box;
-}
-.v30-load-banner {
-    background: rgba(56, 189, 248, 0.12);
-    border: 1.5px solid rgba(56, 189, 248, 0.4);
-    border-radius: 9px;
-    padding: 8px 12px;
-    margin: 6px 0 10px 0;
-    color: #38bdf8;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1.45;
-    box-sizing: border-box;
-}
-.v30-cardio-card {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1.5px solid rgba(16, 185, 129, 0.4);
-    border-radius: 10px;
-    padding: 10px 12px;
-    margin: 10px 0 6px 0;
-    color: #cbd5e1;
-    font-size: 12px;
-    line-height: 1.45;
-    box-sizing: border-box;
 }
 .v30-direct-note {
     padding: 7px 12px;
@@ -9241,7 +8642,7 @@ function buildGuide(){
  if(host===document.body) host.prepend(section); else host.appendChild(section);
 }
 function addPlanButtons(){
-  const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+  const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
   function renderColumn(fieldId, type) {
     const field = document.getElementById(fieldId);
@@ -9287,96 +8688,21 @@ function addPlanButtons(){
         const clean = l.replace(/^[\s\-•]+/, '').trim();
 
         if (type === 'train') {
-          // 1. Títulos de seção e cardio
-          if (/^\[CARDIO/i.test(l)) {
-            const cHeader = document.createElement('div');
-            cHeader.className = 'v30-plan-header';
-            cHeader.innerHTML = `<strong>🏃 ${l}</strong>`;
-            directBox.appendChild(cHeader);
-            return;
-          }
-          if (/^\[/i.test(l)) {
-            const header = document.createElement('div');
-            header.className = 'v30-plan-header';
-            header.innerHTML = `<strong>${l}</strong>`;
-            directBox.appendChild(header);
-            return;
-          }
-
-          // 2. Diretrizes, Ajustes e Avisos de Nível (NUNCA viram botão de exercício)
-          if (/DIRETRIZ DE CARGA|AJUSTE ADAPTATIVO|IMPACTO FISIOLÓGICO|ORIENTAÇÃO TÉCNICA/i.test(clean)) {
-            const banner = document.createElement('div');
-            banner.className = 'v30-load-banner';
-            banner.innerHTML = `🎯 <strong>${clean}</strong>`;
-            directBox.appendChild(banner);
-            return;
-          }
-
-          // 3. Detalhes de Cardio (Equipamento, Protocolo, Técnica)
-          if (/^(Equipamento:|Protocolo:|Técnica:|Cardio:)/i.test(clean)) {
-            const cCard = document.createElement('div');
-            cCard.className = 'v30-cardio-card';
-            cCard.innerHTML = `🏃 <strong>${clean}</strong>`;
-            directBox.appendChild(cCard);
-            return;
-          }
-
-          // 4. Aquecimento simples
-          if (/^Aquecimento/i.test(clean)) {
+          const page = findPage(clean);
+          if (page) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'v30-direct-btn';
+            btn.setAttribute('title', 'Clique para abrir o guia visual de execução');
+            btn.innerHTML = `<span class="v30-direct-play">▶</span> <strong>${clean}</strong>`;
+            btn.onclick = () => openExercise(clean, page);
+            directBox.appendChild(btn);
+          } else {
             const note = document.createElement('div');
             note.className = 'v30-direct-note';
-            note.innerHTML = `🔥 <strong>${clean}</strong>`;
+            note.innerHTML = `<strong>• ${clean}</strong>`;
             directBox.appendChild(note);
-            return;
           }
-
-          // 5. EXERCÍCIO REAL! (Sempre ganha botão interativo com ▶ para abrir o guia visual com imagem)
-          // Separa o título do exercício da informação de carga (se houver)
-          let exTitle = clean;
-          let weightVal = '';
-
-          if (clean.includes('Peso Sugerido:') || clean.includes('Carga:')) {
-            const parts = clean.split(/\|\s*Carga:?|•?\s*⚖️?\s*(?:Peso|Carga)\s*Sugerido:?|•\s*Carga:\s*/i);
-            exTitle = parts[0].replace(/^[0-9]+[\.\-\s]+/, '').trim();
-            weightVal = parts[1] ? parts[1].trim() : '';
-          } else {
-            exTitle = clean.replace(/^[0-9]+[\.\-\s]+/, '').trim();
-          }
-
-          // Cria o container do exercício
-          const itemWrap = document.createElement('div');
-          itemWrap.className = 'v30-train-item';
-
-          // Procura a página no guia cinesiológico (se não achar exatamente, usa busca no texto limpo ou fallback)
-          const page = findPage(exTitle) || findPage(clean) || 3;
-
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'v30-direct-btn';
-          btn.setAttribute('title', 'Clique para abrir o guia visual com a imagem de execução');
-          btn.innerHTML = `<span class="v30-direct-play">▶</span> <strong>${exTitle}</strong>`;
-          btn.onclick = () => openExercise(exTitle, page);
-          itemWrap.appendChild(btn);
-
-          // Se a carga não veio no texto (ex: dado antigo do cache), calcula o peso exato dinamicamente!
-          if (!weightVal) {
-            const userSex = (document.querySelector('input[name="user_sex"]:checked') || {}).value || 'male';
-            const userLevel = (document.querySelector('input[name="user_level"]:checked') || {}).value || 'advanced';
-            const userWeight = parseFloat((document.getElementById('user_weight_current') || {}).value) || 80;
-            if (typeof getExactWeight === 'function') {
-              weightVal = getExactWeight(exTitle, userSex, userLevel, userWeight);
-            }
-          }
-
-          // Se tiver peso sugerido, exibe a badge neon destacada
-          if (weightVal && !weightVal.includes('moderada calibrada')) {
-            const badge = document.createElement('div');
-            badge.className = 'v30-weight-badge';
-            badge.innerHTML = `<span style="color:#ccff00;font-weight:900;">⚖️ PESO SUGERIDO:</span> <strong style="color:#ffffff;">${weightVal}</strong>`;
-            itemWrap.appendChild(badge);
-          }
-
-          directBox.appendChild(itemWrap);
         } else if (type === 'food') {
           let iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>';
           if (/caf[eé]/i.test(clean)) {
@@ -9388,11 +8714,6 @@ function addPlanButtons(){
           } else if (/jantar/i.test(clean)) {
             iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><line x1="12" y1="3" x2="12" y2="7"/><line x1="8" y1="4" x2="8" y2="7"/><line x1="16" y1="4" x2="16" y2="7"/></svg>';
           } else if (/ceia/i.test(clean)) {
-            iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/></svg>';
-          } else if (/suplement|whey|creatina|vitamina/i.test(clean)) {
-            iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg>';
-          } else if (/variedade|substitui/i.test(clean)) {
-            iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>';
             iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/></svg>';
           } else if (/hidrata[çc][aã]o|água/i.test(clean)) {
             iconSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>';
@@ -9536,7 +8857,7 @@ document.addEventListener('click',e=>{
                 <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             </div>
             <h4 class="v30-tour-title" id="v30_tour_title">1. Seu Treino Semanal (Planner)</h4>
-            <p class="v30-tour-desc" id="v30_tour_desc">Aqui você acessa seus treinos de Segunda a Sexta, com séries, repetições, tempos de descanso e observações feitas sob medida para o seu objetivo.</p>
+            <p class="v30-tour-desc" id="v30_tour_desc">Aqui você acessa seus treinos de Segunda a Domingo, com séries, repetições, tempos de descanso e observações feitas sob medida para o seu objetivo.</p>
             <div class="v30-tour-dots" id="v30_tour_dots">
                 <span class="tour-dot active"></span>
                 <span class="tour-dot"></span>
@@ -9550,27 +8871,5 @@ document.addEventListener('click',e=>{
         </div>
     </div>
 
-
-    <!-- TOAST FLUTUANTE DE LEMBRETE INTERATIVO -->
-    <div id="v30_reminder_toast" class="v30-reminder-toast">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <span id="toast_icon" style="font-size: 1.8rem;">💧</span>
-                <div>
-                    <h4 id="toast_title" style="margin: 0; color: #ffffff; font-size: 1.05rem; font-weight: 900;">Hora do Gole!</h4>
-                    <p id="toast_desc" style="margin: 2px 0 0; color: #cbd5e1; font-size: 0.84rem; line-height: 1.4;">Beba 250ml a 350ml de água agora para manter seu metabolismo ativo.</p>
-                </div>
-            </div>
-            <button type="button" onclick="dismissReminderToast()" style="background: none; border: none; color: #94a3b8; font-size: 1.3rem; cursor: pointer; line-height: 1; padding: 2px 6px;">&times;</button>
-        </div>
-        <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px;">
-            <button type="button" id="toast_action_btn" onclick="confirmToastWaterDrink()" style="background: #38bdf8; color: #08090b; border: none; border-radius: 8px; padding: 8px 14px; font-weight: 900; font-size: 0.82rem; cursor: pointer;">
-                +1 Copo Marcado (+500ml)
-            </button>
-            <button type="button" onclick="dismissReminderToast()" style="background: rgba(255, 255, 255, 0.08); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 8px 12px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">
-                OK
-            </button>
-        </div>
-    </div>
 </body>
 </html>
