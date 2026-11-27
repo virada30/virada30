@@ -8408,6 +8408,76 @@
     font-weight: 700 !important;
     line-height: 1.25;
 }
+.v30-supp-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    margin-top: 4px;
+    border-radius: 8px;
+    background: rgba(20, 184, 166, 0.08);
+    border: 1px solid rgba(45, 212, 191, 0.35);
+    color: #e2e8f0;
+    font-size: 12px;
+    line-height: 1.45;
+}
+.v30-supp-card .v30-card-icon {
+    color: #2dd4bf;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.v30-supp-title {
+    color: #2dd4bf;
+    font-weight: 800;
+}
+.v30-supp-note {
+    display: block;
+    margin-top: 4px;
+    font-size: 10.5px;
+    color: #94a3b8;
+}
+.v30-save-actions {
+    display: none;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+.v30-btn-save-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 14px;
+    border-radius: 7px;
+    border: none;
+    background: #ccff00;
+    color: #08090b;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.v30-btn-save-edit:hover {
+    background: #d8ff33;
+    transform: translateY(-1px);
+}
+.v30-btn-cancel-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 12px;
+    border-radius: 7px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: rgba(30, 41, 59, 0.7);
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.v30-btn-cancel-edit:hover {
+    border-color: #cbd5e1;
+    color: #ffffff;
+}
 .v30-direct-btn strong {
     font-weight: 800 !important;
 }
@@ -8835,6 +8905,62 @@ function addPlanButtons(){
       });
     }
 
+    if (type === 'food' && rawVal && !/suplementa[çc][aã]o|vitaminas/i.test(rawVal)) {
+      const goalEl = document.querySelector('input[name="user_goal"]:checked');
+      const goalVal = goalEl ? goalEl.value : 'recomposition';
+      let suppText = 'Creatina monohidratada (3–5g/dia), Whey Protein (se faltar proteína na rotina), Ômega-3 (1–2g/dia), Vitamina D3 + Magnésio e Multivitamínico básico.';
+      if (goalVal === 'fat_loss') {
+        suppText = 'Creatina monohidratada (3–5g/dia para preservar massa magra), Whey Protein (praticidade em déficit), Ômega-3, Vitamina D3, Magnésio e Fibras/Psyllium para saciedade.';
+      } else if (goalVal === 'hypertrophy') {
+        suppText = 'Creatina monohidratada (5g/dia), Whey Protein ou Albumina no pós-treino, Ômega-3, Vitamina D3 + K2, Zinco/Magnésio (ZMA) e Complexo B para metabolismo energético.';
+      }
+      const suppCard = document.createElement('div');
+      suppCard.className = 'v30-supp-card';
+      const pillSvg = '<svg class="v30-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>';
+      suppCard.innerHTML = `<span class="v30-card-icon">${pillSvg}</span><div class="v30-card-body"><strong class="v30-supp-title">Suplementação &amp; Vitaminas:</strong> <span>${suppText}</span><span class="v30-supp-note">Dica educativa — confirme dosagens com médico ou nutricionista.</span></div>`;
+      directBox.appendChild(suppCard);
+    }
+
+    let saveActions = document.getElementById(fieldId + '_save_actions');
+    if (!saveActions) {
+      saveActions = document.createElement('div');
+      saveActions.id = fieldId + '_save_actions';
+      saveActions.className = 'v30-save-actions';
+
+      const cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.className = 'v30-btn-cancel-edit';
+      cancelBtn.textContent = 'Cancelar';
+
+      const saveBtn = document.createElement('button');
+      saveBtn.type = 'button';
+      saveBtn.className = 'v30-btn-save-edit';
+      saveBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Salvar';
+
+      cancelBtn.onclick = () => {
+        if (typeof field.dataset.v30PrevValue === 'string') {
+          field.value = field.dataset.v30PrevValue;
+        }
+        field.style.display = 'none';
+        saveActions.style.display = 'none';
+        directBox.style.display = 'block';
+        renderColumn(fieldId, type);
+      };
+
+      saveBtn.onclick = () => {
+        if (typeof window.saveAllData === 'function') {
+          window.saveAllData();
+        }
+        field.style.display = 'none';
+        saveActions.style.display = 'none';
+        directBox.style.display = 'block';
+        renderColumn(fieldId, type);
+      };
+
+      saveActions.append(cancelBtn, saveBtn);
+      field.insertAdjacentElement('afterend', saveActions);
+    }
+
     const editBar = document.createElement('div');
     editBar.className = 'v30-direct-editbar';
     const toggleBtn = document.createElement('button');
@@ -8847,18 +8973,12 @@ function addPlanButtons(){
     toggleBtn.innerHTML = editLabel;
 
     toggleBtn.onclick = () => {
-      const isHidden = (field.style.display === 'none');
-      if (isHidden) {
-        field.style.display = 'block';
-        directBox.style.display = 'none';
-        toggleBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;vertical-align:middle;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Ver visualização';
-        field.focus();
-      } else {
-        field.style.display = 'none';
-        directBox.style.display = 'block';
-        toggleBtn.innerHTML = editLabel;
-        renderColumn(fieldId, type);
-      }
+      field.dataset.v30PrevValue = field.value;
+      field.style.display = 'block';
+      field.style.minHeight = '220px';
+      directBox.style.display = 'none';
+      saveActions.style.display = 'flex';
+      field.focus();
     };
     editBar.appendChild(toggleBtn);
     directBox.appendChild(editBar);
@@ -8878,7 +8998,12 @@ function addPlanButtons(){
       if (!field) return;
       const type = id.startsWith('train') ? 'train' : (id.startsWith('food') ? 'food' : 'rest');
       renderColumn(id, type);
-      field.addEventListener('input', () => renderColumn(id, type));
+      if (!field.dataset.v30Bound) {
+        field.dataset.v30Bound = '1';
+        field.addEventListener('input', () => {
+          if (field.style.display === 'none') renderColumn(id, type);
+        });
+      }
     });
   });
 
@@ -8896,7 +9021,7 @@ document.addEventListener('click',e=>{
  if(el&&/analis|gerar|montar treino|gerar plano|recalcular/i.test((el.innerText||el.value||''))){setTimeout(()=>{buildGuide();addPlanButtons();},250);}
 });
 document.addEventListener('change',e=>{
- if(e.target&&e.target.matches('input[name="user_level"],input[name="user_sex"],#user_weight_current')){setTimeout(()=>{addPlanButtons();},100);}
+ if(e.target&&e.target.matches('input[name="user_level"],input[name="user_sex"],input[name="user_goal"],#user_weight_current')){setTimeout(()=>{addPlanButtons();},100);}
 });
 })();
 </script>
